@@ -52,6 +52,17 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Custom golden theme colors
+				golden: {
+					DEFAULT: 'hsl(var(--golden))',
+					light: 'hsl(var(--golden-light))',
+					dark: 'hsl(var(--golden-dark))'
+				},
+				black: {
+					deep: 'hsl(var(--black-deep))',
+					medium: 'hsl(var(--black-medium))',
+					light: 'hsl(var(--black-light))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -62,6 +73,16 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			backgroundImage: {
+				'gradient-golden': 'var(--gradient-golden)',
+				'gradient-golden-dark': 'var(--gradient-golden-dark)',
+				'gradient-black': 'var(--gradient-black)'
+			},
+			boxShadow: {
+				'golden': 'var(--shadow-golden)',
+				'golden-glow': 'var(--shadow-golden-glow)',
+				'card': 'var(--shadow-card)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

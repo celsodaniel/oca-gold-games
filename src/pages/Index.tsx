@@ -1,12 +1,26 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Header } from "@/components/Header";
+import { HeroSection } from "@/components/HeroSection";
+import { GameGrid } from "@/components/GameGrid";
+import { Categories } from "@/components/Categories";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main>
+        <HeroSection />
+        <GameGrid 
+          title="Jogos em Destaque" 
+          subtitle="Os melhores jogos selecionados especialmente para você"
+        />
+        <Categories />
+        <GameGrid 
+          title="Promoções Imperdíveis" 
+          subtitle="Aproveite os descontos incríveis por tempo limitado"
+        />
+      </main>
+      <Footer />
     </div>
   );
 };
