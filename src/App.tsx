@@ -9,6 +9,9 @@ import Category from "./pages/Category";
 import GameDetail from "./pages/GameDetail";
 import Promotions from "./pages/Promotions";
 import News from "./pages/News";
+import About from "./pages/About";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +29,9 @@ const App = () => (
           <Route path="/game/:id" element={<GameDetail />} />
           <Route path="/promotions" element={<Promotions />} />
           <Route path="/news" element={<News />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

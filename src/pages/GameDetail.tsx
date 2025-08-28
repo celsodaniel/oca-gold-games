@@ -10,47 +10,11 @@ import game2 from "@/assets/game-2.jpg";
 import game3 from "@/assets/game-3.jpg";
 import game4 from "@/assets/game-4.jpg";
 
-// Mock game data
-const games = {
-  '1': {
-    id: '1',
-    title: 'Cyberpunk 2077',
-    price: 'R$ 89,99',
-    originalPrice: 'R$ 149,99',
-    discount: '40%',
-    rating: 4,
-    image: game1,
-    category: 'Ação',
-    description: 'Cyberpunk 2077 é um RPG de ação em mundo aberto que se passa em Night City, uma megalópole perigosa onde você luta pelo poder, glamour e imortalidade.',
-    features: ['Mundo aberto massivo', 'Personalização profunda', 'Historia envolvente', 'Gráficos de última geração'],
-    requirements: {
-      minimum: 'Windows 10, Intel i5-3570K, 8GB RAM, GTX 780',
-      recommended: 'Windows 10, Intel i7-4790, 12GB RAM, GTX 1060'
-    },
-    screenshots: [game1, game2, game3, game4]
-  },
-  '2': {
-    id: '2',
-    title: 'The Witcher 3',
-    price: 'R$ 39,99',
-    originalPrice: 'R$ 79,99',
-    discount: '50%',
-    rating: 5,
-    image: game2,
-    category: 'RPG',
-    description: 'Uma aventura épica em um mundo aberto com mais de 100 horas de gameplay principal e side quests.',
-    features: ['Mundo aberto gigantesco', 'História rica', 'Combate estratégico', 'Escolhas que importam'],
-    requirements: {
-      minimum: 'Windows 7, Intel i5-2500K, 6GB RAM, GTX 660',
-      recommended: 'Windows 10, Intel i7-3770, 8GB RAM, GTX 770'
-    },
-    screenshots: [game2, game1, game3, game4]
-  }
-};
+import { games } from "@/data/games";
 
 const GameDetail = () => {
   const { id } = useParams();
-  const game = games[id as keyof typeof games];
+  const game = games.find(g => g.id === id);
 
   if (!game) {
     return (

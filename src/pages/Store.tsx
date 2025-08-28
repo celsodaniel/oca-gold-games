@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GameGrid } from "@/components/GameGrid";
@@ -8,6 +9,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search, Filter } from "lucide-react";
 
 const Store = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [sortBy, setSortBy] = useState("popular");
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -31,10 +35,12 @@ const Store = () => {
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
                     placeholder="Buscar jogos..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10 bg-card border-border focus:border-golden"
                   />
                 </div>
-                <Select>
+                <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger className="w-full md:w-48 bg-card border-border">
                     <SelectValue placeholder="Ordenar por" />
                   </SelectTrigger>
@@ -46,7 +52,7 @@ const Store = () => {
                     <SelectItem value="newest">Mais Recentes</SelectItem>
                   </SelectContent>
                 </Select>
-                <Select>
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                   <SelectTrigger className="w-full md:w-48 bg-card border-border">
                     <SelectValue placeholder="Categoria" />
                   </SelectTrigger>
@@ -71,23 +77,32 @@ const Store = () => {
         {/* Categories */}
         <Categories />
 
-        {/* Featured Games */}
-        <GameGrid 
-          title="Jogos em Destaque" 
-          subtitle="Os melhores jogos selecionados especialmente para você"
-        />
+        {/* Main Games Grid */}
+        {searchQuery || selectedCategory !== "all" || sortBy !== "popular" ? (
+          <GameGrid 
+            title="Resultados da Busca" 
+            subtitle={`${searchQuery ? `Buscando por "${searchQuery}"` : ''} ${selectedCategory !== "all" ? `na categoria ${selectedCategory}` : ''}`}
+            searchQuery={searchQuery}
+            category={selectedCategory}
+            sortBy={sortBy}
+          />
+        ) : (
+          <>
+            {/* Featured Games */}
+            <GameGrid 
+              title="Jogos em Destaque" 
+              subtitle="Os melhores jogos selecionados especialmente para você"
+              limit={8}
+              sortBy="popular"
+            />
 
-        {/* All Games */}
-        <GameGrid 
-          title="Todos os Jogos" 
-          subtitle="Explore nosso catálogo completo"
-        />
-
-        {/* On Sale */}
-        <GameGrid 
-          title="Promoções" 
-          subtitle="Jogos com desconto por tempo limitado"
-        />
+            {/* All Games */}
+            <GameGrid 
+              title="Todos os Jogos" 
+              subtitle="Explore nosso catálogo completo"
+            />
+          </>
+        )}
       </main>
       <Footer />
     </div>
