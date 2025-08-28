@@ -1,12 +1,13 @@
 import { Gamepad2, Swords, Rocket, Ghost, Heart, Trophy } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const categories = [
-  { name: "Ação", icon: Swords, color: "from-red-500 to-orange-500" },
-  { name: "Aventura", icon: Rocket, color: "from-blue-500 to-purple-500" },
-  { name: "RPG", icon: Trophy, color: "from-green-500 to-teal-500" },
-  { name: "Terror", icon: Ghost, color: "from-gray-700 to-black" },
-  { name: "Romance", icon: Heart, color: "from-pink-500 to-rose-500" },
-  { name: "Esports", icon: Gamepad2, color: "from-golden to-golden-light" },
+  { name: "Ação", icon: Swords, color: "from-red-500 to-orange-500", slug: "action" },
+  { name: "Aventura", icon: Rocket, color: "from-blue-500 to-purple-500", slug: "adventure" },
+  { name: "RPG", icon: Trophy, color: "from-green-500 to-teal-500", slug: "rpg" },
+  { name: "Terror", icon: Ghost, color: "from-gray-700 to-black", slug: "horror" },
+  { name: "Romance", icon: Heart, color: "from-pink-500 to-rose-500", slug: "romance" },
+  { name: "Esports", icon: Gamepad2, color: "from-golden to-golden-light", slug: "esports" },
 ];
 
 export const Categories = () => {
@@ -26,8 +27,9 @@ export const Categories = () => {
           {categories.map((category) => {
             const Icon = category.icon;
             return (
-              <div
+              <Link
                 key={category.name}
+                to={`/category/${category.slug}`}
                 className="group cursor-pointer"
               >
                 <div className={`relative p-8 rounded-xl bg-gradient-to-br ${category.color} hover:scale-105 transition-all duration-300 shadow-card hover:shadow-golden-glow`}>
@@ -36,7 +38,7 @@ export const Categories = () => {
                     {category.name}
                   </h3>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

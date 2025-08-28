@@ -1,6 +1,7 @@
 import { ShoppingCart, Search, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 import pacocalLogo from "@/assets/pacoca-logo.png";
 
 export const Header = () => {
@@ -8,7 +9,7 @@ export const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
         {/* Logo e Nome */}
-        <div className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2">
           <img 
             src={pacocalLogo} 
             alt="Paçoca Games" 
@@ -17,22 +18,22 @@ export const Header = () => {
           <span className="text-2xl font-bold bg-gradient-golden bg-clip-text text-transparent">
             Paçoca Games
           </span>
-        </div>
+        </Link>
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <a href="#" className="text-foreground hover:text-golden transition-colors">
+          <Link to="/store" className="text-foreground hover:text-golden transition-colors">
             Loja
-          </a>
-          <a href="#" className="text-foreground hover:text-golden transition-colors">
+          </Link>
+          <Link to="/store" className="text-foreground hover:text-golden transition-colors">
             Categorias
-          </a>
-          <a href="#" className="text-foreground hover:text-golden transition-colors">
+          </Link>
+          <Link to="/promotions" className="text-foreground hover:text-golden transition-colors">
             Promoções
-          </a>
-          <a href="#" className="text-foreground hover:text-golden transition-colors">
+          </Link>
+          <Link to="/news" className="text-foreground hover:text-golden transition-colors">
             Novidades
-          </a>
+          </Link>
         </nav>
 
         {/* Search Bar */}

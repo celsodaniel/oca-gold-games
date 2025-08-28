@@ -1,8 +1,10 @@
 import { ShoppingCart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 interface GameCardProps {
+  id?: string;
   title: string;
   price: string;
   originalPrice?: string;
@@ -13,6 +15,7 @@ interface GameCardProps {
 }
 
 export const GameCard = ({ 
+  id = "1",
   title, 
   price, 
   originalPrice, 
@@ -23,23 +26,25 @@ export const GameCard = ({
 }: GameCardProps) => {
   return (
     <Card className={`group overflow-hidden bg-card border-border hover:border-golden/50 transition-all duration-300 hover:shadow-golden ${featured ? 'ring-2 ring-golden/30' : ''}`}>
-      <div className="relative aspect-[3/4] overflow-hidden">
-        <img 
-          src={image} 
-          alt={title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-        />
-        {discount && (
-          <div className="absolute top-2 left-2 bg-gradient-golden text-black-deep px-2 py-1 rounded-md text-sm font-bold">
-            -{discount}
-          </div>
-        )}
-        {featured && (
-          <div className="absolute top-2 right-2 bg-golden text-black-deep px-2 py-1 rounded-md text-xs font-bold">
-            DESTAQUE
-          </div>
-        )}
-      </div>
+      <Link to={`/game/${id}`}>
+        <div className="relative aspect-[3/4] overflow-hidden">
+          <img 
+            src={image} 
+            alt={title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+          {discount && (
+            <div className="absolute top-2 left-2 bg-gradient-golden text-black-deep px-2 py-1 rounded-md text-sm font-bold">
+              -{discount}
+            </div>
+          )}
+          {featured && (
+            <div className="absolute top-2 right-2 bg-golden text-black-deep px-2 py-1 rounded-md text-xs font-bold">
+              DESTAQUE
+            </div>
+          )}
+        </div>
+      </Link>
 
       <CardContent className="p-4">
         <h3 className="font-semibold text-lg mb-2 text-foreground group-hover:text-golden transition-colors line-clamp-2">
