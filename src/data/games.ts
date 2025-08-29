@@ -78,8 +78,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i5-4570, 8GB RAM, GTX 960",
       recommended: "Windows 10, Intel i7-6700, 16GB RAM, GTX 1070"
     },
-    screenshots: [game3, game1, game2, game4],
-    trailer: "https://www.youtube.com/embed/hJJi0ouZnsI"
+    screenshots: [game3, game2, game1, game4],
+    trailer: "https://www.youtube.com/embed/LH-i8IvYIcg"
   },
   {
     id: "4",
@@ -97,8 +97,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i3-6100, 8GB RAM, GTX 750 Ti",
       recommended: "Windows 10, Intel i5-8400, 16GB RAM, GTX 1060"
     },
-    screenshots: [game4, game1, game2, game3],
-    trailer: "https://www.youtube.com/embed/s-JkDK3wqQU"
+    screenshots: [game4, game3, game2, game1],
+    trailer: "https://www.youtube.com/embed/MeB3eYk1Ze0"
   },
   {
     id: "5",
@@ -115,8 +115,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i5-6500, 8GB RAM, GTX 1050",
       recommended: "Windows 10, Intel i7-8700, 16GB RAM, GTX 1660"
     },
-    screenshots: [game5, game1, game2, game3],
-    trailer: "https://www.youtube.com/embed/AIX2ZhT9dFI"
+    screenshots: [game5, game4, game3, game2],
+    trailer: "https://www.youtube.com/embed/K_03gMjJVjQ"
   },
   {
     id: "6",
@@ -132,8 +132,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i5-4460, 8GB RAM, GTX 960",
       recommended: "Windows 10, Intel i7-7700, 16GB RAM, GTX 1070"
     },
-    screenshots: [game6, game1, game2, game3],
-    trailer: "https://www.youtube.com/embed/NivpAiuh-s0"
+    screenshots: [game6, game5, game4, game3],
+    trailer: "https://www.youtube.com/embed/KZ7bVn6WLMM"
   },
   {
     id: "7",
@@ -150,8 +150,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i3-7100, 8GB RAM, GTX 1050",
       recommended: "Windows 10, Intel i5-8600, 16GB RAM, GTX 1060"
     },
-    screenshots: [game7, game1, game2, game3],
-    trailer: "https://www.youtube.com/embed/tn3xuBhqdDs"
+    screenshots: [game7, game6, game5, game4],
+    trailer: "https://www.youtube.com/embed/k2Y6wLZbmRE"
   },
   {
     id: "8",
@@ -166,8 +166,8 @@ export const games: Game[] = [
       minimum: "Windows 7, Intel i3-4130, 4GB RAM, Integrada",
       recommended: "Windows 10, Intel i5-6400, 8GB RAM, GTX 750"
     },
-    screenshots: [game8, game1, game2, game3],
-    trailer: "https://www.youtube.com/embed/K_03gMjJVjQ"
+    screenshots: [game8, game7, game6, game5],
+    trailer: "https://www.youtube.com/embed/iNF5GQXDvz8"
   },
   {
     id: "9",

@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
 import pacocalLogo from "@/assets/pacoca-logo.png";
 
 export const Footer = () => {
@@ -33,10 +34,10 @@ export const Footer = () => {
           <div>
             <h3 className="text-foreground font-semibold text-lg mb-4">Loja</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Novidades</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Promoções</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Mais Vendidos</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Gratuitos</a></li>
+              <li><Link to="/new-releases" className="text-muted-foreground hover:text-golden transition-colors">Novidades</Link></li>
+              <li><Link to="/promotions" className="text-muted-foreground hover:text-golden transition-colors">Promoções</Link></li>
+              <li><Link to="/best-sellers" className="text-muted-foreground hover:text-golden transition-colors">Mais Vendidos</Link></li>
+              <li><Link to="/free-games" className="text-muted-foreground hover:text-golden transition-colors">Gratuitos</Link></li>
             </ul>
           </div>
 
@@ -44,10 +45,10 @@ export const Footer = () => {
           <div>
             <h3 className="text-foreground font-semibold text-lg mb-4">Suporte</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Central de Ajuda</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Contato</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Reembolsos</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Status dos Servidores</a></li>
+              <li><Link to="/help-center" className="text-muted-foreground hover:text-golden transition-colors">Central de Ajuda</Link></li>
+              <li><Link to="/contact" className="text-muted-foreground hover:text-golden transition-colors">Contato</Link></li>
+              <li><Link to="/refunds" className="text-muted-foreground hover:text-golden transition-colors">Reembolsos</Link></li>
+              <li><Link to="/server-status" className="text-muted-foreground hover:text-golden transition-colors">Status dos Servidores</Link></li>
             </ul>
           </div>
 
@@ -55,10 +56,10 @@ export const Footer = () => {
           <div>
             <h3 className="text-foreground font-semibold text-lg mb-4">Empresa</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Sobre Nós</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Carreiras</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Imprensa</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-golden transition-colors">Privacidade</a></li>
+              <li><Link to="/about" className="text-muted-foreground hover:text-golden transition-colors">Sobre Nós</Link></li>
+              <li><Link to="/careers" className="text-muted-foreground hover:text-golden transition-colors">Carreiras</Link></li>
+              <li><Link to="/press" className="text-muted-foreground hover:text-golden transition-colors">Imprensa</Link></li>
+              <li><Link to="/privacy" className="text-muted-foreground hover:text-golden transition-colors">Privacidade</Link></li>
             </ul>
           </div>
         </div>
