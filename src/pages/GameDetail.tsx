@@ -45,13 +45,26 @@ const GameDetail = () => {
 
         {/* Game header */}
         <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Main Image/Trailer */}
           <div className="space-y-4">
-            <img 
-              src={game.image} 
-              alt={game.title}
-              className="w-full rounded-lg shadow-card"
-            />
-            
+            {game.trailer ? (
+              <div className="aspect-video rounded-lg overflow-hidden shadow-card">
+                <iframe
+                  src={game.trailer}
+                  title={`${game.title} Trailer`}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <img 
+                src={game.image} 
+                alt={game.title}
+                className="w-full rounded-lg shadow-card"
+              />
+            )}
+          
             {/* Screenshot gallery */}
             <div className="grid grid-cols-4 gap-2">
               {game.screenshots.map((screenshot, index) => (

@@ -24,6 +24,7 @@ export interface Game {
     recommended: string;
   };
   screenshots: string[];
+  trailer?: string;
 }
 
 export const games: Game[] = [
@@ -43,7 +44,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i5-3570K, 8GB RAM, GTX 780",
       recommended: "Windows 10, Intel i7-4790, 12GB RAM, GTX 1060"
     },
-    screenshots: [game1, game2, game3, game4]
+    screenshots: [game1, game2, game3, game4],
+    trailer: "https://www.youtube.com/embed/8X2kIfS6fb8"
   },
   {
     id: "2",
@@ -60,7 +62,8 @@ export const games: Game[] = [
       minimum: "Windows 7, Intel i5-2500K, 6GB RAM, GTX 660",
       recommended: "Windows 10, Intel i7-3770, 8GB RAM, GTX 770"
     },
-    screenshots: [game2, game1, game3, game4]
+    screenshots: [game2, game1, game3, game4],
+    trailer: "https://www.youtube.com/embed/c0i88t0Kacs"
   },
   {
     id: "3",
@@ -75,7 +78,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i5-4570, 8GB RAM, GTX 960",
       recommended: "Windows 10, Intel i7-6700, 16GB RAM, GTX 1070"
     },
-    screenshots: [game3, game1, game2, game4]
+    screenshots: [game3, game1, game2, game4],
+    trailer: "https://www.youtube.com/embed/hJJi0ouZnsI"
   },
   {
     id: "4",
@@ -93,7 +97,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i3-6100, 8GB RAM, GTX 750 Ti",
       recommended: "Windows 10, Intel i5-8400, 16GB RAM, GTX 1060"
     },
-    screenshots: [game4, game1, game2, game3]
+    screenshots: [game4, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/s-JkDK3wqQU"
   },
   {
     id: "5",
@@ -110,7 +115,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i5-6500, 8GB RAM, GTX 1050",
       recommended: "Windows 10, Intel i7-8700, 16GB RAM, GTX 1660"
     },
-    screenshots: [game5, game1, game2, game3]
+    screenshots: [game5, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/AIX2ZhT9dFI"
   },
   {
     id: "6",
@@ -126,7 +132,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i5-4460, 8GB RAM, GTX 960",
       recommended: "Windows 10, Intel i7-7700, 16GB RAM, GTX 1070"
     },
-    screenshots: [game6, game1, game2, game3]
+    screenshots: [game6, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/NivpAiuh-s0"
   },
   {
     id: "7",
@@ -143,7 +150,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i3-7100, 8GB RAM, GTX 1050",
       recommended: "Windows 10, Intel i5-8600, 16GB RAM, GTX 1060"
     },
-    screenshots: [game7, game1, game2, game3]
+    screenshots: [game7, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/tn3xuBhqdDs"
   },
   {
     id: "8",
@@ -158,7 +166,8 @@ export const games: Game[] = [
       minimum: "Windows 7, Intel i3-4130, 4GB RAM, Integrada",
       recommended: "Windows 10, Intel i5-6400, 8GB RAM, GTX 750"
     },
-    screenshots: [game8, game1, game2, game3]
+    screenshots: [game8, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/K_03gMjJVjQ"
   },
   {
     id: "9",
@@ -175,7 +184,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i5-6500, 8GB RAM, GTX 1050",
       recommended: "Windows 10, Intel i7-8700, 16GB RAM, GTX 1660"
     },
-    screenshots: [game2, game1, game3, game4]
+    screenshots: [game2, game1, game3, game4],
+    trailer: "https://www.youtube.com/embed/VppjX4to9s4"
   },
   {
     id: "10",
@@ -190,7 +200,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i3-8100, 6GB RAM, GTX 950",
       recommended: "Windows 10, Intel i5-9400, 12GB RAM, GTX 1060"
     },
-    screenshots: [game3, game1, game2, game4]
+    screenshots: [game3, game1, game2, game4],
+    trailer: "https://www.youtube.com/embed/J69I1PONv3s"
   },
   {
     id: "11",
@@ -206,7 +217,8 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i5-4590, 8GB RAM, GTX 960",
       recommended: "Windows 10, Intel i7-8700K, 16GB RAM, GTX 1070"
     },
-    screenshots: [game1, game2, game3, game4]
+    screenshots: [game1, game2, game3, game4],
+    trailer: "https://www.youtube.com/embed/kUdae8mONGQ"
   },
   {
     id: "12",
@@ -223,7 +235,146 @@ export const games: Game[] = [
       minimum: "Windows 10, Intel i3-6100, 6GB RAM, GTX 750",
       recommended: "Windows 10, Intel i5-7500, 12GB RAM, GTX 1050"
     },
-    screenshots: [game8, game1, game2, game3]
+    screenshots: [game8, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/iNF5GQXDvz8"
+  },
+  {
+    id: "13",
+    title: "Assassin's Creed: Valhalla",
+    price: "R$ 99,99",
+    originalPrice: "R$ 149,99",
+    discount: "33%",
+    rating: 5,
+    image: game3,
+    featured: true,
+    category: "action",
+    description: "Torne-se um lendário Viking e lidere seu clã através das terras hostis da Inglaterra do século IX.",
+    features: ["Mundo aberto Viking", "Combate brutal", "Construção de assentamentos", "Narrativa épica"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-4460, 8GB RAM, GTX 960",
+      recommended: "Windows 10, Intel i7-7700HQ, 16GB RAM, GTX 1060"
+    },
+    screenshots: [game3, game1, game2, game4],
+    trailer: "https://www.youtube.com/embed/ssrNcwxALS4"
+  },
+  {
+    id: "14",
+    title: "FIFA 24",
+    price: "R$ 199,99",
+    rating: 4,
+    image: game4,
+    category: "esports",
+    description: "O jogo de futebol mais realista já criado, com HyperMotion Technology e jogabilidade autêntica.",
+    features: ["Ultimate Team", "Modo Carreira", "Volta Football", "Pro Clubs"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-6600K, 8GB RAM, GTX 1050 Ti",
+      recommended: "Windows 10, Intel i7-9700K, 16GB RAM, GTX 1660"
+    },
+    screenshots: [game4, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/o1igaMv46SY"
+  },
+  {
+    id: "15",
+    title: "Red Dead Redemption 2",
+    price: "R$ 149,99",
+    originalPrice: "R$ 199,99",
+    discount: "25%",
+    rating: 5,
+    image: game5,
+    featured: true,
+    category: "adventure",
+    description: "Viva a vida de um fora da lei no coração da América. Sobreviva, lute e prospere no mundo selvagem do oeste.",
+    features: ["Mundo aberto imenso", "Física realista", "História cinematográfica", "Online multiplayer"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-2500K, 8GB RAM, GTX 770",
+      recommended: "Windows 10, Intel i7-4770K, 12GB RAM, GTX 1060"
+    },
+    screenshots: [game5, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/gmA6MrX81z4"
+  },
+  {
+    id: "16",
+    title: "Call of Duty: Modern Warfare III",
+    price: "R$ 299,99",
+    rating: 4,
+    image: game6,
+    featured: true,
+    category: "action",
+    description: "A mais nova entrada na icônica série Modern Warfare com campanha épica e multijogador competitivo.",
+    features: ["Campanha cinematográfica", "Multijogador competitivo", "Modo Zombies", "Cross-platform"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-6600K, 8GB RAM, GTX 1060",
+      recommended: "Windows 10, Intel i7-8700K, 16GB RAM, RTX 3060"
+    },
+    screenshots: [game6, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/mGPy1IMBBQw"
+  },
+  {
+    id: "17",
+    title: "Baldur's Gate 3",
+    price: "R$ 199,99",
+    rating: 5,
+    image: game7,
+    category: "rpg",
+    description: "O RPG definitivo baseado em D&D. Reúna seu grupo e retorne aos Reinos Esquecidos em uma aventura épica.",
+    features: ["D&D autêntico", "Co-op para 4 jogadores", "Narrativa ramificada", "Combate tático por turnos"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-4690, 8GB RAM, GTX 970",
+      recommended: "Windows 10, Intel i7-8700K, 16GB RAM, GTX 1070"
+    },
+    screenshots: [game7, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/1T22wNvoNiU"
+  },
+  {
+    id: "18",
+    title: "Elden Ring",
+    price: "R$ 179,99",
+    originalPrice: "R$ 249,99",
+    discount: "28%",
+    rating: 5,
+    image: game8,
+    featured: true,
+    category: "rpg",
+    description: "Levante-se, Maculado, e seja guiado pela graça para brandir o poder do Anel Prístino e se tornar um Lorde Prístino nas Terras Intermédias.",
+    features: ["Mundo aberto de fantasia sombria", "Combate souls-like", "Narrativa de George R.R. Martin", "Exploração épica"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-8400, 12GB RAM, GTX 1060",
+      recommended: "Windows 10, Intel i7-8700K, 16GB RAM, GTX 1070"
+    },
+    screenshots: [game8, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/E3Huy2cdih0"
+  },
+  {
+    id: "19",
+    title: "Apex Legends",
+    price: "Free to Play",
+    rating: 4,
+    image: game1,
+    category: "esports",
+    description: "Battle Royale competitivo com heróis únicos, cada um com habilidades especiais e estratégias táticas.",
+    features: ["Battle Royale gratuito", "Heróis únicos", "Competitivo ranqueado", "Squads de 3 jogadores"],
+    requirements: {
+      minimum: "Windows 7, Intel i5-3570K, 6GB RAM, GTX 650",
+      recommended: "Windows 10, Intel i5-8600K, 8GB RAM, GTX 970"
+    },
+    screenshots: [game1, game2, game3, game4],
+    trailer: "https://www.youtube.com/embed/UMJb_mkqynU"
+  },
+  {
+    id: "20",
+    title: "Stardew Valley",
+    price: "R$ 24,99",
+    rating: 5,
+    image: game2,
+    category: "adventure",
+    description: "Herde a fazenda do seu avô e transforme terrenos selvagens em uma fazenda próspera.",
+    features: ["Farming relaxante", "Relacionamentos", "Exploração de cavernas", "Co-op multiplayer"],
+    requirements: {
+      minimum: "Windows Vista, Intel Core 2 Duo, 2GB RAM, Integrada",
+      recommended: "Windows 10, Intel i3-6100, 4GB RAM, GTX 750"
+    },
+    screenshots: [game2, game1, game3, game4],
+    trailer: "https://www.youtube.com/embed/ot7uXNQskhs"
   }
 ];
 

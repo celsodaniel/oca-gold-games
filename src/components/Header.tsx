@@ -1,10 +1,20 @@
 import { ShoppingCart, Search, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import pacocalLogo from "@/assets/pacoca-logo.png";
 
 export const Header = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/store?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
@@ -40,13 +50,15 @@ export const Header = () => {
         </nav>
 
         {/* Search Bar */}
-        <div className="hidden lg:flex relative flex-1 max-w-sm mx-6">
+        <form onSubmit={handleSearch} className="hidden lg:flex relative flex-1 max-w-sm mx-6">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
             placeholder="Buscar jogos..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10 bg-black-light border-border focus:border-golden"
           />
-        </div>
+        </form>
 
         {/* User Actions */}
         <div className="flex items-center space-x-2">
