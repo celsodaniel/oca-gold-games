@@ -1,12 +1,16 @@
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
-export const Contact = () => {
+const Contact = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main className="container mx-auto px-4 py-8">
       <Card className="mb-8">
         <CardHeader>
           <CardTitle className="text-3xl font-bold bg-gradient-golden bg-clip-text text-transparent">
@@ -84,6 +88,10 @@ export const Contact = () => {
           </Card>
         </div>
       </div>
+      </main>
+      <Footer />
     </div>
   );
 };
+
+export default Contact;

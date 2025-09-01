@@ -16,13 +16,13 @@ import NotFound from "./pages/NotFound";
 import { NewReleases } from "./pages/NewReleases";
 import { BestSellers } from "./pages/BestSellers";
 import { FreeGames } from "./pages/FreeGames";
-import { HelpCenter } from "./pages/HelpCenter";
-import { Contact } from "./pages/Contact";
+import HelpCenter from "./pages/HelpCenter";
+import Contact from "./pages/Contact";
 import { Refunds } from "./pages/Refunds";
 import { ServerStatus } from "./pages/ServerStatus";
-import { Careers } from "./pages/Careers";
+import Careers from "./pages/Careers";
 import { Press } from "./pages/Press";
-import { Privacy } from "./pages/Privacy";
+import Privacy from "./pages/Privacy";
 
 const queryClient = new QueryClient();
 

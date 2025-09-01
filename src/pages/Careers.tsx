@@ -1,9 +1,11 @@
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Clock, DollarSign, Users } from "lucide-react";
 
-export const Careers = () => {
+const Careers = () => {
   const jobOpenings = [
     {
       title: "Desenvolvedor Frontend React",
@@ -36,7 +38,9 @@ export const Careers = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main className="container mx-auto px-4 py-8">
       <Card className="mb-8">
         <CardHeader>
           <CardTitle className="text-3xl font-bold bg-gradient-golden bg-clip-text text-transparent">
@@ -145,6 +149,10 @@ export const Careers = () => {
           </div>
         </CardContent>
       </Card>
+      </main>
+      <Footer />
     </div>
   );
 };
+
+export default Careers;

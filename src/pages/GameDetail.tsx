@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, ShoppingCart, Star, Heart, Share2, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import { games } from "@/data/games";
 const GameDetail = () => {
   const { id } = useParams();
   const game = games.find(g => g.id === id);
+  const [currentImage, setCurrentImage] = useState<string>("");
 
   if (!game) {
     return (
@@ -47,23 +49,13 @@ const GameDetail = () => {
         <div className="grid lg:grid-cols-2 gap-8 mb-8">
           {/* Main Image/Trailer */}
           <div className="space-y-4">
-            {game.trailer ? (
-              <div className="aspect-video rounded-lg overflow-hidden shadow-card">
-                <iframe
-                  src={game.trailer}
-                  title={`${game.title} Trailer`}
-                  className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            ) : (
+            <div className="aspect-video rounded-lg overflow-hidden shadow-card">
               <img 
-                src={game.image} 
+                src={currentImage || game.image} 
                 alt={game.title}
-                className="w-full rounded-lg shadow-card"
+                className="w-full h-full object-cover"
               />
-            )}
+            </div>
           
             {/* Screenshot gallery */}
             <div className="grid grid-cols-4 gap-2">
@@ -72,7 +64,10 @@ const GameDetail = () => {
                   key={index}
                   src={screenshot} 
                   alt={`Screenshot ${index + 1}`}
-                  className="w-full aspect-video object-cover rounded cursor-pointer hover:opacity-80 transition-opacity"
+                  className={`w-full aspect-video object-cover rounded cursor-pointer hover:opacity-80 transition-opacity ${
+                    currentImage === screenshot ? 'ring-2 ring-golden' : ''
+                  }`}
+                  onClick={() => setCurrentImage(screenshot)}
                 />
               ))}
             </div>
