@@ -1,6 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, AlertTriangle, XCircle, Clock } from "lucide-react";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 export const ServerStatus = () => {
   const serverStatus = [
@@ -58,7 +60,9 @@ export const ServerStatus = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main className="container mx-auto px-4 py-8">
       <Card className="mb-8">
         <CardHeader>
           <CardTitle className="text-3xl font-bold bg-gradient-golden bg-clip-text text-transparent">
@@ -159,6 +163,8 @@ export const ServerStatus = () => {
           </CardContent>
         </Card>
       </div>
+      </main>
+      <Footer />
     </div>
   );
 };

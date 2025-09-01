@@ -1,13 +1,17 @@
 import { GameCard } from "@/components/GameCard";
 import { games } from "@/data/games";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 export const FreeGames = () => {
   // Get free games
   const freeGames = games.filter(game => game.price === "Free to Play");
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main className="container mx-auto px-4 py-8">
       <Card className="mb-8">
         <CardHeader>
           <CardTitle className="text-3xl font-bold bg-gradient-golden bg-clip-text text-transparent">
@@ -48,6 +52,8 @@ export const FreeGames = () => {
           ))}
         </div>
       )}
+      </main>
+      <Footer />
     </div>
   );
 };

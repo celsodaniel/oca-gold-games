@@ -51,8 +51,8 @@ const GameDetail = () => {
           <div className="space-y-4">
             <div className="aspect-video rounded-lg overflow-hidden shadow-card">
               <img 
-                src={currentImage || game.image} 
-                alt={game.title}
+                src={game.trailerImage} 
+                alt={`${game.title} trailer`}
                 className="w-full h-full object-cover"
               />
             </div>
