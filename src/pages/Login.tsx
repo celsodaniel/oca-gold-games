@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -8,11 +8,13 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Eye, EyeOff, Mail, Lock, User, Github } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import pacocalLogo from "@/assets/pacoca-logo.png";
+import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [loginData, setLoginData] = useState({
     email: "",
     password: ""
@@ -24,20 +26,57 @@ const Login = () => {
     confirmPassword: ""
   });
 
-  const handleLogin = (e: React.FormEvent) => {
+  const { signIn, signUp, user } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login attempt:", loginData);
-    // Here you would handle the login logic
+    setLoading(true);
+    
+    const { error } = await signIn(loginData.email, loginData.password);
+    
+    if (!error) {
+      navigate('/');
+    }
+    
+    setLoading(false);
   };
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (registerData.password !== registerData.confirmPassword) {
       alert("As senhas não coincidem!");
       return;
     }
-    console.log("Register attempt:", registerData);
-    // Here you would handle the registration logic
+    
+    if (registerData.password.length < 6) {
+      alert("A senha deve ter pelo menos 6 caracteres!");
+      return;
+    }
+    
+    setLoading(true);
+    
+    const { error } = await signUp(registerData.email, registerData.password);
+    
+    if (!error) {
+      // Reset form after successful registration
+      setRegisterData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+      });
+    }
+    
+    setLoading(false);
   };
 
   return (
@@ -132,9 +171,10 @@ const Login = () => {
 
                     <Button 
                       type="submit" 
+                      disabled={loading}
                       className="w-full bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold"
                     >
-                      Entrar
+                      {loading ? "Entrando..." : "Entrar"}
                     </Button>
                   </form>
 
@@ -251,9 +291,10 @@ const Login = () => {
 
                     <Button 
                       type="submit" 
+                      disabled={loading}
                       className="w-full bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold"
                     >
-                      Criar Conta
+                      {loading ? "Criando..." : "Criar Conta"}
                     </Button>
                   </form>
 
