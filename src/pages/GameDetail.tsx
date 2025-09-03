@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, ShoppingCart, Star, Heart, Share2, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,17 +6,19 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import game1 from "@/assets/game-1.jpg";
-import game2 from "@/assets/game-2.jpg";
-import game3 from "@/assets/game-3.jpg";
-import game4 from "@/assets/game-4.jpg";
 
 import { games } from "@/data/games";
 
 const GameDetail = () => {
   const { id } = useParams();
   const game = games.find(g => g.id === id);
-  const [currentImage, setCurrentImage] = useState<string>("");
+  const [currentMedia, setCurrentMedia] = useState<{type: 'trailer' | 'image', src: string}>({type: 'trailer', src: ''});
+
+  useEffect(() => {
+    if (game?.trailer) {
+      setCurrentMedia({type: 'trailer', src: game.trailer});
+    }
+  }, [game]);
 
   if (!game) {
     return (
@@ -49,25 +51,55 @@ const GameDetail = () => {
         <div className="grid lg:grid-cols-2 gap-8 mb-8">
           {/* Main Image/Trailer */}
           <div className="space-y-4">
-            <div className="aspect-video rounded-lg overflow-hidden shadow-card">
-              <img 
-                src={game.trailerImage} 
-                alt={`${game.title} trailer`}
-                className="w-full h-full object-cover"
-              />
+            <div className="aspect-video rounded-lg overflow-hidden shadow-card bg-black">
+              {currentMedia.type === 'trailer' ? (
+                <iframe
+                  src={currentMedia.src}
+                  title={`${game.title} trailer`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              ) : (
+                <img 
+                  src={currentMedia.src} 
+                  alt={`${game.title} screenshot`}
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
           
-            {/* Screenshot gallery */}
-            <div className="grid grid-cols-4 gap-2">
+            {/* Media gallery */}
+            <div className="grid grid-cols-5 gap-2">
+              {/* Trailer thumbnail */}
+              {game.trailer && (
+                <div 
+                  className={`relative w-full aspect-video object-cover rounded cursor-pointer hover:opacity-80 transition-opacity overflow-hidden ${
+                    currentMedia.type === 'trailer' ? 'ring-2 ring-golden' : ''
+                  }`}
+                  onClick={() => setCurrentMedia({type: 'trailer', src: game.trailer!})}
+                >
+                  <img 
+                    src={game.trailerImage} 
+                    alt="Trailer"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                    <Play className="h-6 w-6 text-white" />
+                  </div>
+                </div>
+              )}
+              
+              {/* Screenshots */}
               {game.screenshots.map((screenshot, index) => (
                 <img 
                   key={index}
                   src={screenshot} 
                   alt={`Screenshot ${index + 1}`}
                   className={`w-full aspect-video object-cover rounded cursor-pointer hover:opacity-80 transition-opacity ${
-                    currentImage === screenshot ? 'ring-2 ring-golden' : ''
+                    currentMedia.type === 'image' && currentMedia.src === screenshot ? 'ring-2 ring-golden' : ''
                   }`}
-                  onClick={() => setCurrentImage(screenshot)}
+                  onClick={() => setCurrentMedia({type: 'image', src: screenshot})}
                 />
               ))}
             </div>
