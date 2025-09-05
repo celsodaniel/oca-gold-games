@@ -76,11 +76,13 @@ export const Header = () => {
 
         {/* User Actions */}
         <div className="flex items-center space-x-2">
-          <Link to="/cart">
-            <Button variant="ghost" size="icon">
-              <ShoppingCart className="h-5 w-5" />
-            </Button>
-          </Link>
+          {user && (
+            <Link to="/cart">
+              <Button variant="ghost" size="icon">
+                <ShoppingCart className="h-5 w-5" />
+              </Button>
+            </Link>
+          )}
           
           {/* User Auth */}
           {user ? (
