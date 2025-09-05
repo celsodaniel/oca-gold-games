@@ -22,7 +22,6 @@ interface ProfileData {
   avatar_url?: string;
   full_name?: string;
   phone?: string;
-  website?: string;
   created_at?: string;
   updated_at?: string;
 }
@@ -243,7 +242,7 @@ export default function Profile() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="phone" className="text-foreground">Telefone</Label>
                       <Input
@@ -251,16 +250,6 @@ export default function Profile() {
                         value={profile.phone || ''}
                         onChange={(e) => handleInputChange('phone', e.target.value)}
                         placeholder="(11) 99999-9999"
-                        className="bg-input border-border focus:border-golden text-foreground"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="website" className="text-foreground">Website</Label>
-                      <Input
-                        id="website"
-                        value={profile.website || ''}
-                        onChange={(e) => handleInputChange('website', e.target.value)}
-                        placeholder="https://seusite.com"
                         className="bg-input border-border focus:border-golden text-foreground"
                       />
                     </div>
