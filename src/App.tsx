@@ -24,6 +24,7 @@ import { ServerStatus } from "./pages/ServerStatus";
 import Careers from "./pages/Careers";
 import { Press } from "./pages/Press";
 import Privacy from "./pages/Privacy";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -51,9 +52,10 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/refunds" element={<Refunds />} />
           <Route path="/server-status" element={<ServerStatus />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/press" element={<Press />} />
-          <Route path="/privacy" element={<Privacy />} />
+           <Route path="/careers" element={<Careers />} />
+           <Route path="/press" element={<Press />} />
+           <Route path="/privacy" element={<Privacy />} />
+           <Route path="/profile" element={<Profile />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>

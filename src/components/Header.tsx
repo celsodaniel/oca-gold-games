@@ -97,6 +97,12 @@ export const Header = () => {
                   {user.email}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/profile" className="cursor-pointer">
+                    <User className="mr-2 h-4 w-4" />
+                    Meu Perfil
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   Sair
