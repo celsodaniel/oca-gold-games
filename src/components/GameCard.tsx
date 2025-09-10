@@ -2,6 +2,9 @@ import { ShoppingCart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 interface GameCardProps {
   id?: string;
@@ -24,6 +27,26 @@ export const GameCard = ({
   image, 
   featured = false 
 }: GameCardProps) => {
+  const { addToCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    if (price === "Free to Play") {
+      return;
+    }
+
+    const numericPrice = parseFloat(price.replace("R$ ", "").replace(",", "."));
+    addToCart(id, numericPrice);
+  };
   return (
     <Card className={`group overflow-hidden bg-card border-border hover:border-golden/50 transition-all duration-300 hover:shadow-golden ${featured ? 'ring-2 ring-golden/30' : ''}`}>
       <Link to={`/game/${id}`}>
@@ -77,9 +100,10 @@ export const GameCard = ({
         <Button 
           className="w-full bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold group-hover:shadow-golden-glow transition-all duration-300"
           size="sm"
+          onClick={handleAddToCart}
         >
           <ShoppingCart className="h-4 w-4 mr-2" />
-          Adicionar ao Carrinho
+          {price === "Free to Play" ? "Jogar Grátis" : "Adicionar ao Carrinho"}
         </Button>
       </CardFooter>
     </Card>
