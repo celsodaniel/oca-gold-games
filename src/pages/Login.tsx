@@ -27,6 +27,8 @@ const Login = () => {
     password: "",
     confirmPassword: ""
   });
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
 
   const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
@@ -110,6 +112,40 @@ const Login = () => {
     }
     
     setLoading(false);
+  };
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(forgotPasswordEmail, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+
+      if (error) {
+        toast({
+          variant: "destructive",
+          title: "Erro",
+          description: error.message,
+        });
+      } else {
+        toast({
+          title: "Email enviado!",
+          description: "Verifique seu email para redefinir a senha.",
+        });
+        setShowForgotPassword(false);
+        setForgotPasswordEmail("");
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Erro",
+        description: "Erro inesperado ao enviar email de recuperação.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -197,10 +233,58 @@ const Login = () => {
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <Link to="#" className="text-sm text-golden hover:underline">
+                      <button
+                        type="button"
+                        onClick={() => setShowForgotPassword(!showForgotPassword)}
+                        className="text-sm text-golden hover:underline"
+                      >
                         Esqueceu a senha?
-                      </Link>
+                      </button>
                     </div>
+
+                    {showForgotPassword && (
+                      <div className="space-y-4 p-4 bg-muted/50 rounded-lg">
+                        <h3 className="font-semibold text-foreground">Recuperar Senha</h3>
+                        <form onSubmit={handleForgotPassword} className="space-y-3">
+                          <div className="space-y-2">
+                            <Label htmlFor="forgot-email" className="text-card-foreground">Email</Label>
+                            <div className="relative">
+                              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                              <Input
+                                id="forgot-email"
+                                type="email"
+                                placeholder="seu@email.com"
+                                value={forgotPasswordEmail}
+                                onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                                className="pl-10 bg-background border-border focus:border-golden"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div className="flex gap-2">
+                            <Button 
+                              type="submit" 
+                              disabled={loading}
+                              size="sm"
+                              className="bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold"
+                            >
+                              {loading ? "Enviando..." : "Enviar Email"}
+                            </Button>
+                            <Button 
+                              type="button" 
+                              variant="outline"
+                              size="sm"
+                              onClick={() => {
+                                setShowForgotPassword(false);
+                                setForgotPasswordEmail("");
+                              }}
+                            >
+                              Cancelar
+                            </Button>
+                          </div>
+                        </form>
+                      </div>
+                    )}
 
                     <Button 
                       type="submit" 

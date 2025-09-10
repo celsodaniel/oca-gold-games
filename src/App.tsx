@@ -13,6 +13,7 @@ import News from "./pages/News";
 import About from "./pages/About";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
+import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 import { NewReleases } from "./pages/NewReleases";
 import { BestSellers } from "./pages/BestSellers";
@@ -43,9 +44,10 @@ const App = () => (
           <Route path="/promotions" element={<Promotions />} />
           <Route path="/news" element={<News />} />
           <Route path="/about" element={<About />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/new-releases" element={<NewReleases />} />
+           <Route path="/cart" element={<Cart />} />
+           <Route path="/login" element={<Login />} />
+           <Route path="/reset-password" element={<ResetPassword />} />
+           <Route path="/new-releases" element={<NewReleases />} />
           <Route path="/best-sellers" element={<BestSellers />} />
           <Route path="/free-games" element={<FreeGames />} />
           <Route path="/help-center" element={<HelpCenter />} />
