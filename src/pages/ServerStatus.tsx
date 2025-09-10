@@ -5,13 +5,22 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
 export const ServerStatus = () => {
+  const getCurrentStatus = () => {
+    const now = new Date();
+    const hour = now.getHours();
+    const isOperationalHours = hour >= 8 && hour <= 22;
+    return isOperationalHours ? "online" : "offline";
+  };
+
+  const currentStatus = getCurrentStatus();
+  
   const serverStatus = [
-    { name: "Loja Online", status: "online", response: "45ms" },
-    { name: "Downloads", status: "online", response: "120ms" },
-    { name: "Autenticação", status: "online", response: "32ms" },
+    { name: "Loja Online", status: currentStatus, response: currentStatus === "offline" ? "N/A" : "45ms" },
+    { name: "Downloads", status: currentStatus, response: currentStatus === "offline" ? "N/A" : "120ms" },
+    { name: "Autenticação", status: currentStatus, response: currentStatus === "offline" ? "N/A" : "32ms" },
     { name: "Pagamentos", status: "maintenance", response: "N/A" },
-    { name: "Chat/Suporte", status: "online", response: "67ms" },
-    { name: "Multiplayer", status: "degraded", response: "340ms" },
+    { name: "Chat/Suporte", status: currentStatus, response: currentStatus === "offline" ? "N/A" : "67ms" },
+    { name: "Multiplayer", status: currentStatus === "online" ? "degraded" : "offline", response: currentStatus === "offline" ? "N/A" : "340ms" },
   ];
 
   const getStatusIcon = (status: string) => {
@@ -77,10 +86,19 @@ export const ServerStatus = () => {
       <div className="mb-8">
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-500" />
-              <span>Todos os sistemas operacionais</span>
-            </CardTitle>
+          <CardTitle className="flex items-center space-x-2">
+            {currentStatus === "online" ? (
+              <>
+                <CheckCircle className="h-5 w-5 text-green-500" />
+                <span>Sistemas operacionais (08:00-22:00)</span>
+              </>
+            ) : (
+              <>
+                <XCircle className="h-5 w-5 text-red-500" />
+                <span>Sistemas offline (fora do horário 08:00-22:00)</span>
+              </>
+            )}
+          </CardTitle>
             <CardDescription>
               Última atualização: {new Date().toLocaleString('pt-BR')}
             </CardDescription>

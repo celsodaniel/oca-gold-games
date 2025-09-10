@@ -23,12 +23,6 @@ export const Press = () => {
     }
   ];
 
-  const mediaAssets = [
-    { name: "Logo Paçoca Games (PNG)", size: "2.4 MB" },
-    { name: "Screenshots da Plataforma", size: "15.7 MB" },
-    { name: "Guia de Marca", size: "4.2 MB" },
-    { name: "Fotos da Equipe", size: "8.9 MB" }
-  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -122,30 +116,6 @@ export const Press = () => {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Recursos de Mídia</CardTitle>
-          <CardDescription>
-            Logos, imagens e materiais para uso editorial
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {mediaAssets.map((asset, index) => (
-              <div key={index} className="flex items-center justify-between p-4 bg-muted rounded-lg">
-                <div>
-                  <h4 className="font-medium">{asset.name}</h4>
-                  <p className="text-sm text-muted-foreground">{asset.size}</p>
-                </div>
-                <Button variant="outline" size="sm">
-                  <Download className="h-4 w-4 mr-2" />
-                  Download
-                </Button>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
       </main>
       <Footer />
     </div>
