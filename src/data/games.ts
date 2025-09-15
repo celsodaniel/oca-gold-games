@@ -396,6 +396,521 @@ export const games: Game[] = [
     },
     screenshots: [game2, game1, game3, game4],
     trailer: "https://www.youtube.com/embed/ot7uXNQskhs"
+  },
+  {
+    id: "21",
+    title: "Silent Hill: Nightmare Returns",
+    price: "R$ 89,99",
+    originalPrice: "R$ 119,99", 
+    discount: "25%",
+    rating: 5,
+    image: game1,
+    trailerImage: game7,
+    featured: true,
+    category: "horror",
+    description: "Retorne à cidade amaldiçoada de Silent Hill onde pesadelos se tornam realidade e o terror psicológico aguarda.",
+    features: ["Terror psicológico", "Atmosfera sinistra", "Múltiplos finais", "Puzzles complexos"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-6500, 8GB RAM, GTX 1050",
+      recommended: "Windows 10, Intel i7-8700, 16GB RAM, GTX 1660"
+    },
+    screenshots: [game1, game7, game8, game3],
+    trailer: "https://www.youtube.com/embed/Zb4dBhpkqjE"
+  },
+  {
+    id: "22", 
+    title: "Dead Space: Remake",
+    price: "R$ 179,99",
+    originalPrice: "R$ 249,99",
+    discount: "28%",
+    rating: 5,
+    image: game7,
+    trailerImage: game4,
+    category: "horror",
+    description: "Sobreviva ao horror no espaço profundo enquanto luta contra criaturas grotescas na estação espacial Ishimura.",
+    features: ["Horror espacial", "Desmembramento estratégico", "Gráficos de última geração", "Áudio 3D"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-8400, 12GB RAM, GTX 1060", 
+      recommended: "Windows 10, Intel i7-9700K, 16GB RAM, RTX 2070"
+    },
+    screenshots: [game7, game4, game1, game8],
+    trailer: "https://www.youtube.com/embed/sODGuG8bFRg"
+  },
+  {
+    id: "23",
+    title: "Resident Evil 4: Remake", 
+    price: "R$ 199,99",
+    rating: 5,
+    image: game8,
+    trailerImage: game1,
+    featured: true,
+    category: "horror",
+    description: "Leon Kennedy enfrenta horrores inéditos em uma missão para salvar a filha do presidente em uma vila rural infectada.",
+    features: ["Survival horror clássico", "Combate aprimorado", "Gráficos fotorrealistas", "Modo Mercenários"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-7500, 12GB RAM, GTX 1050 Ti",
+      recommended: "Windows 10, Intel i7-8700K, 16GB RAM, RTX 2060"
+    },
+    screenshots: [game8, game1, game7, game4],
+    trailer: "https://www.youtube.com/embed/E69tKrfEQag"
+  },
+  {
+    id: "24",
+    title: "Outlast Trinity",
+    price: "R$ 49,99",
+    originalPrice: "R$ 79,99",
+    discount: "38%",
+    rating: 4,
+    image: game4,
+    trailerImage: game8,
+    category: "horror",
+    description: "Três jogos de terror psicológico onde você é um jornalista investigativo enfrentando os piores pesadelos.",
+    features: ["Terror first-person", "Sem combate - apenas fuga", "Documentação em tempo real", "Atmosfera claustrofóbica"],
+    requirements: {
+      minimum: "Windows 7, Intel i3-4160, 4GB RAM, GTX 750",
+      recommended: "Windows 10, Intel i5-6600, 8GB RAM, GTX 1050"
+    },
+    screenshots: [game4, game8, game7, game1],
+    trailer: "https://www.youtube.com/embed/MOLM6rYhIf0"
+  },
+  {
+    id: "25",
+    title: "Phasmophobia: Deluxe Edition",
+    price: "R$ 34,99",
+    rating: 4,
+    image: game3,
+    trailerImage: game7,
+    category: "horror", 
+    description: "Investigue atividades paranormais com seus amigos neste jogo cooperativo de caça aos fantasmas.",
+    features: ["Co-op até 4 jogadores", "Caça aos fantasmas", "Comunicação por voz", "Equipamentos de investigação"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-4590, 8GB RAM, GTX 970",
+      recommended: "Windows 10, Intel i5-8400, 16GB RAM, GTX 1060"
+    },
+    screenshots: [game3, game7, game8, game4],
+    trailer: "https://www.youtube.com/embed/MANyxCrqUs4"
+  },
+  {
+    id: "26",
+    title: "Romance of the Three Kingdoms",
+    price: "R$ 159,99", 
+    originalPrice: "R$ 199,99",
+    discount: "20%",
+    rating: 5,
+    image: game5,
+    trailerImage: game2,
+    category: "romance",
+    description: "Uma saga épica de amor e guerra na antiga China, onde escolhas românticas moldam o destino de reinos inteiros.",
+    features: ["Romance histórico", "Múltiplas rotas", "Sistema de relacionamentos", "Eventos sazonais"],
+    requirements: {
+      minimum: "Windows 10, Intel i3-6100, 6GB RAM, GTX 750",
+      recommended: "Windows 10, Intel i5-7400, 12GB RAM, GTX 1050"
+    },
+    screenshots: [game5, game2, game6, game8],
+    trailer: "https://www.youtube.com/embed/ZaESkWmPqjk"
+  },
+  {
+    id: "27",
+    title: "Doki Doki Literature Club Plus",
+    price: "R$ 44,99",
+    rating: 4,
+    image: game6,
+    trailerImage: game8,
+    category: "romance",
+    description: "Uma visual novel aparentemente inocente que subverte expectativas em uma experiência psicológica única.",
+    features: ["Visual novel inovadora", "Meta-narrativa", "Múltiplos finais", "Experiência imersiva"],
+    requirements: {
+      minimum: "Windows 7, Intel i3-3220, 4GB RAM, Integrada",
+      recommended: "Windows 10, Intel i5-4590, 8GB RAM, GTX 750"
+    },
+    screenshots: [game6, game8, game5, game2],
+    trailer: "https://www.youtube.com/embed/WUVaB_663M4"
+  },
+  {
+    id: "28", 
+    title: "Catherine: Full Body",
+    price: "R$ 89,99",
+    originalPrice: "R$ 129,99",
+    discount: "31%",
+    rating: 5,
+    image: game2,
+    trailerImage: game5,
+    featured: true,
+    category: "romance",
+    description: "Um thriller psicológico sobre relacionamentos adultos, infidelidade e consequências das escolhas amorosas.",
+    features: ["Narrativa madura", "Puzzles únicos", "Múltiplos finais", "Escolhas morais"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-4460, 6GB RAM, GTX 660",
+      recommended: "Windows 10, Intel i7-6700, 8GB RAM, GTX 1050"
+    },
+    screenshots: [game2, game5, game6, game8],
+    trailer: "https://www.youtube.com/embed/Eg5kbu6_8xI"
+  },
+  {
+    id: "29",
+    title: "Persona 5 Royal",
+    price: "R$ 149,99",
+    rating: 5,
+    image: game8,
+    trailerImage: game6,
+    category: "romance",
+    description: "Viva uma vida dupla como estudante e Ladrão Fantasma, desenvolvendo relacionamentos profundos em Tóquio moderno.",
+    features: ["Simulação de vida", "Sistema de relacionamentos", "Combate estilizado", "Música incrível"],
+    requirements: {
+      minimum: "Windows 10, Intel i7-4790, 8GB RAM, GTX 650 Ti",
+      recommended: "Windows 10, Intel i7-4790, 8GB RAM, GTX 1060"
+    },
+    screenshots: [game8, game6, game2, game5],
+    trailer: "https://www.youtube.com/embed/Ec8VrjjMLjA"
+  },
+  {
+    id: "30",
+    title: "Hatoful Boyfriend: Collector's Edition",
+    price: "R$ 24,99", 
+    originalPrice: "R$ 39,99",
+    discount: "37%",
+    rating: 4,
+    image: game1,
+    trailerImage: game3,
+    category: "romance",
+    description: "Uma visual novel excêntrica onde você namora pombos em uma escola para aves. Bizarro mas surpreendentemente tocante.",
+    features: ["Romance bizarro", "Humor único", "Múltiplas rotas", "Arte charmosa"],
+    requirements: {
+      minimum: "Windows XP, Intel Pentium 4, 512MB RAM, Integrada",
+      recommended: "Windows 10, Intel i3-2100, 2GB RAM, GTX 550"
+    },
+    screenshots: [game1, game3, game6, game8],
+    trailer: "https://www.youtube.com/embed/7K8Y6S8PKcU"
+  },
+  {
+    id: "31",
+    title: "Grand Theft Auto V: Premium Edition",
+    price: "R$ 129,99",
+    originalPrice: "R$ 199,99",
+    discount: "35%",
+    rating: 5,
+    image: game3,
+    trailerImage: game1,
+    featured: true,
+    category: "action",
+    description: "O jogo de mundo aberto definitivo com três protagonistas únicos em Los Santos, a cidade do crime e oportunidades.",
+    features: ["Mundo aberto massivo", "Três personagens", "GTA Online", "Mods suportados"],
+    requirements: {
+      minimum: "Windows 8, Intel i5-3470, 8GB RAM, GTX 660",
+      recommended: "Windows 10, Intel i7-4770K, 16GB RAM, GTX 1060"
+    },
+    screenshots: [game3, game1, game6, game4],
+    trailer: "https://www.youtube.com/embed/QkkoHAzjnUs"
+  },
+  {
+    id: "32",
+    title: "Doom Eternal",
+    price: "R$ 79,99",
+    originalPrice: "R$ 119,99", 
+    discount: "33%",
+    rating: 5,
+    image: game4,
+    trailerImage: game7,
+    category: "action",
+    description: "O FPS mais intenso já criado. Extermine demônios com armas devastadoras em combate frenético e brutal.",
+    features: ["Combate ultrarrápido", "Arsenal devastador", "Campanha épica", "Multiplayer competitivo"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-7600K, 8GB RAM, GTX 1050 Ti",
+      recommended: "Windows 10, Intel i7-9700K, 16GB RAM, RTX 2060"
+    },
+    screenshots: [game4, game7, game3, game1],
+    trailer: "https://www.youtube.com/embed/FoNdJUKlHHM"
+  },
+  {
+    id: "33",
+    title: "Spider-Man: Miles Morales",
+    price: "R$ 199,99",
+    rating: 5,
+    image: game7,
+    trailerImage: game4,
+    category: "action",
+    description: "Torne-se o novo Spider-Man enquanto Miles Morales descobre poderes explosivos que o diferenciam de Peter Parker.",
+    features: ["Poderes bioelétricos", "Nova York detalhada", "História emocionante", "Combate acrobático"],
+    requirements: {
+      minimum: "Windows 10, Intel i3-4160, 8GB RAM, GTX 950",
+      recommended: "Windows 10, Intel i5-4670, 16GB RAM, GTX 1060"
+    },
+    screenshots: [game7, game4, game3, game1],
+    trailer: "https://www.youtube.com/embed/T03KudWDMJo"
+  },
+  {
+    id: "34",
+    title: "Hades: Game of the Year Edition", 
+    price: "R$ 59,99",
+    originalPrice: "R$ 89,99",
+    discount: "33%",
+    rating: 5,
+    image: game1,
+    trailerImage: game8,
+    category: "action",
+    description: "Escape do submundo como Zagreus neste roguelike de ação com narrativa excepcional e combate viciante.",
+    features: ["Roguelike perfeito", "Narrativa contínua", "Arte deslumbrante", "Progressão satisfatória"],
+    requirements: {
+      minimum: "Windows 7, Intel Core 2 Duo, 4GB RAM, GTX 650",
+      recommended: "Windows 10, Intel i5-2500K, 8GB RAM, GTX 950"
+    },
+    screenshots: [game1, game8, game7, game4],
+    trailer: "https://www.youtube.com/embed/91t0ha9x0AE"
+  },
+  {
+    id: "35",
+    title: "Counter-Strike 2",
+    price: "Free to Play",
+    rating: 5,
+    image: game8,
+    trailerImage: game1,
+    featured: true,
+    category: "esports",
+    description: "A evolução do FPS tático mais competitivo do mundo, reconstruído na Source 2 com gráficos e física aprimorados.",
+    features: ["Matchmaking ranqueado", "Novos mapas", "Physics aprimorada", "Economia de skins"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-2500K, 8GB RAM, GTX 960",
+      recommended: "Windows 10, Intel i7-8700K, 16GB RAM, GTX 1070"
+    },
+    screenshots: [game8, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/ZYbtOSwdCRE"
+  },
+  {
+    id: "36",
+    title: "League of Legends: Wild Rift", 
+    price: "Free to Play",
+    rating: 4,
+    image: game2,
+    trailerImage: game5,
+    category: "esports",
+    description: "O MOBA mais jogado do mundo agora otimizado para todas as plataformas com controles intuitivos.",
+    features: ["MOBA clássico", "Cross-platform", "Campeões icônicos", "Ranked competitivo"],
+    requirements: {
+      minimum: "Windows 10, Intel i3-6100, 4GB RAM, GTX 650",
+      recommended: "Windows 10, Intel i5-7400, 8GB RAM, GTX 1050"
+    },
+    screenshots: [game2, game5, game8, game1],
+    trailer: "https://www.youtube.com/embed/M71DqvyROSk"
+  },
+  {
+    id: "37",
+    title: "Rocket League: Ultimate Edition",
+    price: "Free to Play",
+    rating: 5,
+    image: game5,
+    trailerImage: game2,
+    category: "esports",
+    description: "Futebol com carros em arenas futuristas. Fácil de aprender, impossível de dominar completamente.",
+    features: ["Física única", "Cross-platform", "Temporadas competitivas", "Customização de carros"],
+    requirements: {
+      minimum: "Windows 7, Intel i3-6100, 4GB RAM, GTX 660",
+      recommended: "Windows 10, Intel i5-7400, 8GB RAM, GTX 1050"
+    },
+    screenshots: [game5, game2, game8, game1],
+    trailer: "https://www.youtube.com/embed/Vawwy2eu5sA"
+  },
+  {
+    id: "38",
+    title: "Valorant: Champions Bundle",
+    price: "Free to Play",
+    rating: 4,
+    image: game1,
+    trailerImage: game6,
+    category: "esports",
+    description: "FPS tático 5v5 onde habilidades precisas se encontram com estratégia de equipe em arenas competitivas.",
+    features: ["Tático 5v5", "Agentes únicos", "Anti-cheat robusto", "Competitivo ranqueado"],
+    requirements: {
+      minimum: "Windows 7, Intel i3-4150, 4GB RAM, GTX 730",
+      recommended: "Windows 10, Intel i5-4460, 8GB RAM, GTX 1050 Ti"
+    },
+    screenshots: [game1, game6, game2, game5],
+    trailer: "https://www.youtube.com/embed/e_E9W2vsRbQ"
+  },
+  {
+    id: "39",
+    title: "Overwatch 2: Legendary Edition",
+    price: "Free to Play",
+    rating: 4,
+    image: game6,
+    trailerImage: game1,
+    category: "esports",
+    description: "O shooter de heróis definitivo com personagens únicos, cada um com habilidades especiais e papéis táticos.",
+    features: ["Heroes únicos", "Modos PvP e PvE", "Eventos sazonais", "Sistema de classificação"],
+    requirements: {
+      minimum: "Windows 10, Intel i3-6100, 6GB RAM, GTX 1050",
+      recommended: "Windows 10, Intel i7-6700K, 8GB RAM, GTX 1060"
+    },
+    screenshots: [game6, game1, game2, game5],
+    trailer: "https://www.youtube.com/embed/GKXS_YA9s7E"
+  },
+  {
+    id: "40",
+    title: "The Legend of Zelda: Breath of the Wild",
+    price: "R$ 299,99",
+    rating: 5,
+    image: game3,
+    trailerImage: game7,
+    featured: true,
+    category: "adventure",
+    description: "Explore Hyrule como nunca antes nesta aventura épica que redefine a franquia Zelda com liberdade total.",
+    features: ["Mundo aberto revolucionário", "Física interativa", "Exploração livre", "Arte cel-shading"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-4430, 8GB RAM, GTX 750 Ti",
+      recommended: "Windows 10, Intel i7-6700K, 16GB RAM, GTX 1070"
+    },
+    screenshots: [game3, game7, game1, game4],
+    trailer: "https://www.youtube.com/embed/zw47_q9wbBE"
+  },
+  {
+    id: "41",
+    title: "God of War: Ragnarök",
+    price: "R$ 299,99",
+    rating: 5,
+    image: game7,
+    trailerImage: game3,
+    category: "adventure",
+    description: "Kratos e Atreus embarcam em uma jornada épica pela mitologia nórdica enfrentando deuses e monstros.",
+    features: ["Narrativa cinematográfica", "Combate visceral", "Relacionamento pai-filho", "Mitologia nórdica"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-8400, 8GB RAM, GTX 1060",
+      recommended: "Windows 10, Intel i7-8700K, 16GB RAM, RTX 2070"
+    },
+    screenshots: [game7, game3, game1, game4],
+    trailer: "https://www.youtube.com/embed/EE-4GvjKcfs"
+  },
+  {
+    id: "42",
+    title: "Horizon Zero Dawn: Complete Edition",
+    price: "R$ 149,99",
+    originalPrice: "R$ 199,99",
+    discount: "25%",
+    rating: 5,
+    image: game4,
+    trailerImage: game8,
+    category: "adventure",
+    description: "Caçe máquinas robóticas em um mundo pós-apocalíptico exuberante como Aloy, uma hábil caçadora.",
+    features: ["Mundo pós-apocalíptico", "Caça a robôs", "História envolvente", "Exploração épica"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-2500K, 8GB RAM, GTX 780",
+      recommended: "Windows 10, Intel i7-4770K, 16GB RAM, GTX 1060"
+    },
+    screenshots: [game4, game8, game7, game3],
+    trailer: "https://www.youtube.com/embed/wzx96gYA8ek"
+  },
+  {
+    id: "43",
+    title: "Uncharted: Legacy Collection",
+    price: "R$ 199,99",
+    originalPrice: "R$ 249,99",
+    discount: "20%",
+    rating: 5,
+    image: game8,
+    trailerImage: game4,
+    category: "adventure",
+    description: "A coleção completa das aventuras de Nathan Drake em busca de tesouros perdidos ao redor do mundo.",
+    features: ["Quatro jogos completos", "Aventura cinematográfica", "Puzzles arqueológicos", "Ação de cinema"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-4430, 8GB RAM, GTX 960",
+      recommended: "Windows 10, Intel i7-6700K, 16GB RAM, GTX 1070"
+    },
+    screenshots: [game8, game4, game7, game3],
+    trailer: "https://www.youtube.com/embed/5kVUL1-5TgQ"
+  },
+  {
+    id: "44",
+    title: "Subnautica: Below Zero",
+    price: "R$ 89,99",
+    originalPrice: "R$ 119,99",
+    discount: "25%",
+    rating: 4,
+    image: game1,
+    trailerImage: game5,
+    category: "adventure",
+    description: "Mergulhe em um oceano alienígena congelado e descubra criaturas fantásticas neste survival aquático.",
+    features: ["Exploração submarina", "Survival crafting", "Criaturas alienígenas", "História misteriosa"],
+    requirements: {
+      minimum: "Windows 10, Intel i3-6300, 8GB RAM, GTX 550 Ti",
+      recommended: "Windows 10, Intel i7-6700K, 8GB RAM, GTX 1050 Ti"
+    },
+    screenshots: [game1, game5, game8, game4],
+    trailer: "https://www.youtube.com/embed/BtP8r8nRfko"
+  },
+  {
+    id: "45",
+    title: "Final Fantasy XIV: Complete Edition",
+    price: "R$ 159,99",
+    originalPrice: "R$ 219,99",
+    discount: "27%",
+    rating: 5,
+    image: game5,
+    trailerImage: game1,
+    featured: true,
+    category: "rpg",
+    description: "O MMORPG definitivo com a história mais aclamada da franquia Final Fantasy e milhões de jogadores.",
+    features: ["MMORPG premium", "História épica", "Classes múltiplas", "Conteúdo cooperativo"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-2400, 4GB RAM, GTX 750",
+      recommended: "Windows 10, Intel i7-6700, 8GB RAM, GTX 970"
+    },
+    screenshots: [game5, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/4tyuIh12_HU"
+  },
+  {
+    id: "46",
+    title: "Mass Effect: Legendary Edition",
+    price: "R$ 179,99", 
+    originalPrice: "R$ 229,99",
+    discount: "22%",
+    rating: 5,
+    image: game2,
+    trailerImage: game6,
+    category: "rpg",
+    description: "A trilogia completa de Shepard remasterizada com gráficos aprimorados e todas as DLCs incluídas.",
+    features: ["Trilogia completa", "Gráficos aprimorados", "Todas as DLCs", "Escolhas épicas"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-3570K, 8GB RAM, GTX 750 Ti",
+      recommended: "Windows 10, Intel i7-7700HQ, 16GB RAM, GTX 1060"
+    },
+    screenshots: [game2, game6, game5, game1],
+    trailer: "https://www.youtube.com/embed/n8i53TtQ6IQ"
+  },
+  {
+    id: "47",
+    title: "Divinity: Original Sin 2",
+    price: "R$ 129,99",
+    originalPrice: "R$ 159,99", 
+    discount: "19%",
+    rating: 5,
+    image: game6,
+    trailerImage: game2,
+    category: "rpg",
+    description: "O RPG tactical definitivo onde cada escolha importa e a criatividade no combate é recompensada.",
+    features: ["Co-op para 4 jogadores", "Liberdade total", "Narrativa profunda", "Combate tático"],
+    requirements: {
+      minimum: "Windows 7, Intel i5-2400, 4GB RAM, GTX 550",
+      recommended: "Windows 10, Intel i7-6700K, 8GB RAM, GTX 970"
+    },
+    screenshots: [game6, game2, game5, game1],
+    trailer: "https://www.youtube.com/embed/YQzUcYnZyV0"
+  },
+  {
+    id: "48",
+    title: "Disco Elysium: Final Cut",
+    price: "R$ 99,99",
+    originalPrice: "R$ 139,99",
+    discount: "29%", 
+    rating: 5,
+    image: game1,
+    trailerImage: game7,
+    category: "rpg",
+    description: "Um RPG revolucionário sobre um detetive com amnésia resolvendo um caso enquanto reconstrói sua identidade.",
+    features: ["Narrativa revolucionária", "Sem combate tradicional", "Diálogos profundos", "Arte única"],
+    requirements: {
+      minimum: "Windows 7, Intel i5-7500, 8GB RAM, GTX 1060",
+      recommended: "Windows 10, Intel i7-8700, 8GB RAM, GTX 1060"
+    },
+    screenshots: [game1, game7, game6, game2],
+    trailer: "https://www.youtube.com/embed/URMR-znfСyo"
   }
 ];
 
