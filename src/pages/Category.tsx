@@ -91,18 +91,27 @@ const Category = () => {
         <GameGrid 
           title={`Jogos de ${categoryInfo.name} em Destaque`}
           subtitle="Os melhores títulos desta categoria"
+          category={category}
+          sortBy="popular"
+          limit={8}
         />
 
         {/* Popular Games in Category */}
         <GameGrid 
           title={`Mais Populares em ${categoryInfo.name}`}
           subtitle="Os jogos mais jogados pelos usuários"
+          category={category}
+          sortBy="rating"
+          limit={8}
         />
 
         {/* New Releases in Category */}
         <GameGrid 
           title={`Novidades em ${categoryInfo.name}`}
           subtitle="Os lançamentos mais recentes"
+          category={category}
+          sortBy="newest"
+          limit={8}
         />
       </main>
       <Footer />

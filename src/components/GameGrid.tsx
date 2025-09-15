@@ -1,3 +1,4 @@
+import React from "react";
 import { GameCard } from "./GameCard";
 import { games, Game } from "@/data/games";
 
@@ -11,6 +12,7 @@ interface GameGridProps {
 }
 
 export const GameGrid = ({ title, subtitle, category, searchQuery, sortBy, limit }: GameGridProps) => {
+  const [currentLimit, setCurrentLimit] = React.useState(limit || games.length);
   let filteredGames = [...games];
 
   // Filter by category
@@ -61,9 +63,8 @@ export const GameGrid = ({ title, subtitle, category, searchQuery, sortBy, limit
   }
 
   // Limit results
-  if (limit) {
-    filteredGames = filteredGames.slice(0, limit);
-  }
+  const displayedGames = filteredGames.slice(0, currentLimit);
+  const hasMoreGames = filteredGames.length > currentLimit;
   return (
     <section className="py-16 px-4">
       <div className="container mx-auto">
@@ -86,7 +87,7 @@ export const GameGrid = ({ title, subtitle, category, searchQuery, sortBy, limit
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {filteredGames.map((game) => (
+            {displayedGames.map((game) => (
               <GameCard
                 key={game.id}
                 id={game.id}
@@ -102,11 +103,16 @@ export const GameGrid = ({ title, subtitle, category, searchQuery, sortBy, limit
           </div>
         )}
 
-        <div className="text-center mt-12">
-          <button className="bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-bold px-8 py-3 rounded-lg transition-all duration-300 hover:shadow-golden">
-            Ver Mais Jogos
-          </button>
-        </div>
+        {hasMoreGames && (
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => setCurrentLimit(currentLimit + (limit || 8))}
+              className="bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-bold px-8 py-3 rounded-lg transition-all duration-300 hover:shadow-golden"
+            >
+              Ver Mais Jogos
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
