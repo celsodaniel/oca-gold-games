@@ -60,38 +60,31 @@ export const usePayment = () => {
       // Gerar ID da transação
       const transactionId = `txn_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-      // Salvar transação no banco
-      const { error: transactionError } = await supabase
-        .from('transactions')
-        .insert({
-          user_id: user.id,
-          transaction_id: transactionId,
-          amount: paymentRequest.amount,
-          status: 'completed',
-          payment_method: 'credit_card',
-          items: paymentRequest.items.map(item => ({
-            game_id: item.game_id,
-            title: item.game?.title,
-            price: item.price,
-            quantity: item.quantity
-          }))
-        });
+      // Salvar transação no banco usando RPC call para contornar limitação de tipos
+      const { error: transactionError } = await supabase.rpc('create_transaction', {
+        user_id: user.id,
+        transaction_id: transactionId,
+        amount: paymentRequest.amount,
+        status: 'completed',
+        payment_method: 'credit_card',
+        items: JSON.stringify(paymentRequest.items.map(item => ({
+          game_id: item.game_id,
+          title: item.game?.title,
+          price: item.price,
+          quantity: item.quantity
+        })))
+      });
 
       if (transactionError) {
         console.error('Erro ao salvar transação:', transactionError);
         return { success: false, error: "Erro interno do sistema" };
       }
 
-      // Adicionar jogos à biblioteca do usuário
-      const libraryEntries = paymentRequest.items.map(item => ({
+      // Adicionar jogos à biblioteca do usuário usando RPC call
+      const { error: libraryError } = await supabase.rpc('add_games_to_library', {
         user_id: user.id,
-        game_id: item.game_id,
-        acquired_at: new Date().toISOString()
-      }));
-
-      const { error: libraryError } = await supabase
-        .from('user_library')
-        .upsert(libraryEntries, { onConflict: 'user_id,game_id' });
+        game_ids: paymentRequest.items.map(item => item.game_id)
+      });
 
       if (libraryError) {
         console.error('Erro ao adicionar à biblioteca:', libraryError);
@@ -118,11 +111,9 @@ export const usePayment = () => {
     if (!user) return [];
 
     try {
-      const { data, error } = await supabase
-        .from('transactions')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
+      const { data, error } = await supabase.rpc('get_user_transactions', {
+        user_id: user.id
+      });
 
       if (error) {
         console.error('Erro ao buscar histórico:', error);
