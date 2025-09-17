@@ -12,6 +12,7 @@ import Promotions from "./pages/Promotions";
 import News from "./pages/News";
 import About from "./pages/About";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
@@ -44,8 +45,9 @@ const App = () => (
           <Route path="/promotions" element={<Promotions />} />
           <Route path="/news" element={<News />} />
           <Route path="/about" element={<About />} />
-           <Route path="/cart" element={<Cart />} />
-           <Route path="/login" element={<Login />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/login" element={<Login />} />
            <Route path="/reset-password" element={<ResetPassword />} />
            <Route path="/new-releases" element={<NewReleases />} />
           <Route path="/best-sellers" element={<BestSellers />} />

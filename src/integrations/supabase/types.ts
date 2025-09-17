@@ -145,7 +145,35 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      add_games_to_library: {
+        Args: { game_ids: string[]; user_id: string }
+        Returns: undefined
+      }
+      create_transaction: {
+        Args: {
+          amount: number
+          items: string
+          payment_method: string
+          status: string
+          transaction_id: string
+          user_id: string
+        }
+        Returns: undefined
+      }
+      get_user_transactions: {
+        Args: { user_id: string }
+        Returns: {
+          amount: number
+          created_at: string
+          id: string
+          items: Json | null
+          payment_method: string
+          status: string
+          transaction_id: string
+          updated_at: string
+          user_id: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
