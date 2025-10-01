@@ -35,10 +35,7 @@ export const usePayment = () => {
 
     setLoading(true);
     try {
-      // Simular processamento de pagamento (1 segundo de delay)
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Validações básicas do cartão
+      // Validações básicas do cartão (para UX)
       const { cardNumber, expiryDate, cvv, holderName } = paymentRequest.paymentMethod;
       
       if (!cardNumber || cardNumber.replace(/\s/g, '').length < 13) {
@@ -57,50 +54,69 @@ export const usePayment = () => {
         return { success: false, error: "Nome do titular inválido" };
       }
 
-      // Gerar ID da transação
-      const transactionId = `txn_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      // Criar sessão de checkout do Stripe
+      const { data: checkoutData, error: checkoutError } = await supabase.functions.invoke(
+        'create-payment',
+        {
+          body: {
+            items: paymentRequest.items,
+            amount: paymentRequest.amount
+          }
+        }
+      );
 
-      // Preparar itens para salvar
-      const items = paymentRequest.items.map(item => ({
-        game_id: item.game_id,
-        title: item.game?.title,
-        price: item.price,
-        quantity: item.quantity
-      }));
-
-      // Salvar transação no banco de dados
-      const { error: transactionError } = await supabase.rpc('create_transaction', {
-        user_id: user.id,
-        transaction_id: transactionId,
-        amount: paymentRequest.amount,
-        status: 'completed',
-        payment_method: 'credit_card',
-        items: JSON.stringify(items)
-      });
-
-      if (transactionError) {
-        console.error('Erro ao criar transação:', transactionError);
+      if (checkoutError) {
+        console.error('Erro ao criar checkout:', checkoutError);
         return { 
           success: false, 
           error: "Erro ao processar pagamento. Tente novamente." 
         };
       }
 
-      // Adicionar jogos à biblioteca do usuário
-      const gameIds = paymentRequest.items.map(item => item.game_id);
-      const { error: libraryError } = await supabase.rpc('add_games_to_library', {
-        user_id: user.id,
-        game_ids: gameIds
+      if (!checkoutData?.url) {
+        return { 
+          success: false, 
+          error: "Erro ao criar sessão de pagamento." 
+        };
+      }
+
+      // Abrir checkout do Stripe em nova aba
+      const checkoutWindow = window.open(checkoutData.url, '_blank');
+      
+      if (!checkoutWindow) {
+        return {
+          success: false,
+          error: "Por favor, permita pop-ups para completar o pagamento."
+        };
+      }
+
+      // Aguardar retorno do pagamento (simples polling)
+      // Em produção, considere usar webhooks
+      toast({
+        title: "Redirecionando para pagamento",
+        description: "Complete o pagamento na janela aberta",
       });
 
-      if (libraryError) {
-        console.error('Erro ao adicionar jogos à biblioteca:', libraryError);
-        // Não retornamos erro aqui pois o pagamento já foi processado
+      // Verificar status do pagamento após um tempo
+      await new Promise(resolve => setTimeout(resolve, 3000));
+
+      const { data: verifyData, error: verifyError } = await supabase.functions.invoke(
+        'verify-payment',
+        {
+          body: { sessionId: checkoutData.sessionId }
+        }
+      );
+
+      if (verifyError || !verifyData?.success) {
+        return {
+          success: false,
+          error: "Aguardando confirmação do pagamento..."
+        };
       }
 
       return { 
         success: true, 
-        transactionId 
+        transactionId: verifyData.transactionId 
       };
 
     } catch (error) {
