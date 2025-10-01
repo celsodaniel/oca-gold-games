@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import type { CartItem } from "@/hooks/useCart";
 
 interface PaymentData {
@@ -34,8 +35,8 @@ export const usePayment = () => {
 
     setLoading(true);
     try {
-      // Simular processamento de pagamento (2 segundos de delay)
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Simular processamento de pagamento (1 segundo de delay)
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Validações básicas do cartão
       const { cardNumber, expiryDate, cvv, holderName } = paymentRequest.paymentMethod;
@@ -59,36 +60,43 @@ export const usePayment = () => {
       // Gerar ID da transação
       const transactionId = `txn_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-      // Salvar na localStorage temporariamente (simulação)
-      const transactions = JSON.parse(localStorage.getItem('user_transactions') || '[]');
-      transactions.push({
-        id: transactionId,
+      // Preparar itens para salvar
+      const items = paymentRequest.items.map(item => ({
+        game_id: item.game_id,
+        title: item.game?.title,
+        price: item.price,
+        quantity: item.quantity
+      }));
+
+      // Salvar transação no banco de dados
+      const { error: transactionError } = await supabase.rpc('create_transaction', {
         user_id: user.id,
+        transaction_id: transactionId,
         amount: paymentRequest.amount,
         status: 'completed',
         payment_method: 'credit_card',
-        items: paymentRequest.items.map(item => ({
-          game_id: item.game_id,
-          title: item.game?.title,
-          price: item.price,
-          quantity: item.quantity
-        })),
-        created_at: new Date().toISOString()
+        items: JSON.stringify(items)
       });
-      localStorage.setItem('user_transactions', JSON.stringify(transactions));
 
-      // Adicionar jogos à biblioteca do usuário (simulação)
-      const library = JSON.parse(localStorage.getItem('user_library') || '[]');
-      paymentRequest.items.forEach(item => {
-        if (!library.some((lib: any) => lib.user_id === user.id && lib.game_id === item.game_id)) {
-          library.push({
-            user_id: user.id,
-            game_id: item.game_id,
-            acquired_at: new Date().toISOString()
-          });
-        }
+      if (transactionError) {
+        console.error('Erro ao criar transação:', transactionError);
+        return { 
+          success: false, 
+          error: "Erro ao processar pagamento. Tente novamente." 
+        };
+      }
+
+      // Adicionar jogos à biblioteca do usuário
+      const gameIds = paymentRequest.items.map(item => item.game_id);
+      const { error: libraryError } = await supabase.rpc('add_games_to_library', {
+        user_id: user.id,
+        game_ids: gameIds
       });
-      localStorage.setItem('user_library', JSON.stringify(library));
+
+      if (libraryError) {
+        console.error('Erro ao adicionar jogos à biblioteca:', libraryError);
+        // Não retornamos erro aqui pois o pagamento já foi processado
+      }
 
       return { 
         success: true, 
@@ -110,10 +118,16 @@ export const usePayment = () => {
     if (!user) return [];
 
     try {
-      const transactions = JSON.parse(localStorage.getItem('user_transactions') || '[]');
-      return transactions.filter((t: any) => t.user_id === user.id).sort((a: any, b: any) => 
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      );
+      const { data, error } = await supabase.rpc('get_user_transactions', {
+        user_id: user.id
+      });
+
+      if (error) {
+        console.error('Erro ao buscar histórico:', error);
+        return [];
+      }
+
+      return data || [];
     } catch (error) {
       console.error('Erro ao buscar histórico:', error);
       return [];
