@@ -32,8 +32,12 @@ serve(async (req) => {
     console.log("[CREATE-PAYMENT] User authenticated:", user.email);
 
     // Get payment data from request
-    const { items, amount } = await req.json();
-    console.log("[CREATE-PAYMENT] Processing payment:", { amount, itemCount: items.length });
+    const { items, amount, payment_method_types } = await req.json();
+    console.log("[CREATE-PAYMENT] Processing payment:", { 
+      amount, 
+      itemCount: items.length,
+      paymentMethods: payment_method_types 
+    });
 
     // Initialize Stripe
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
@@ -66,13 +70,13 @@ serve(async (req) => {
     console.log("[CREATE-PAYMENT] Creating checkout session with", lineItems.length, "items");
 
     // Create a checkout session
-    const session = await stripe.checkout.sessions.create({
+    const sessionConfig: any = {
       customer: customerId,
       customer_email: customerId ? undefined : user.email,
       line_items: lineItems,
       mode: "payment",
-      success_url: `${req.headers.get("origin")}/checkout?success=true`,
-      cancel_url: `${req.headers.get("origin")}/checkout?canceled=true`,
+      success_url: `${req.headers.get("origin")}/payment-methods?success=true`,
+      cancel_url: `${req.headers.get("origin")}/payment-methods?canceled=true`,
       metadata: {
         user_id: user.id,
         items: JSON.stringify(items.map((item: any) => ({
@@ -82,7 +86,15 @@ serve(async (req) => {
           quantity: item.quantity
         }))),
       },
-    });
+    };
+
+    // Add payment method types if specified
+    if (payment_method_types && payment_method_types.length > 0) {
+      sessionConfig.payment_method_types = payment_method_types;
+      console.log("[CREATE-PAYMENT] Using payment methods:", payment_method_types);
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionConfig);
 
     console.log("[CREATE-PAYMENT] Checkout session created:", session.id);
 

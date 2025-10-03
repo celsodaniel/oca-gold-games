@@ -27,6 +27,7 @@ import Careers from "./pages/Careers";
 import { Press } from "./pages/Press";
 import Privacy from "./pages/Privacy";
 import Profile from "./pages/Profile";
+import PaymentMethods from "./pages/PaymentMethods";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/payment-methods" element={<PaymentMethods />} />
             <Route path="/login" element={<Login />} />
            <Route path="/reset-password" element={<ResetPassword />} />
            <Route path="/new-releases" element={<NewReleases />} />

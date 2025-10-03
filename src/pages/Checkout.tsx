@@ -233,15 +233,14 @@ export default function Checkout() {
                   </div>
 
                   <Button
-                    onClick={handleCheckout}
-                    disabled={paymentLoading}
+                    onClick={() => navigate('/payment-methods')}
                     className="w-full bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold py-6 text-lg"
                   >
-                    {paymentLoading ? "Processando..." : `Finalizar Compra - R$ ${total.toFixed(2).replace('.', ',')}`}
+                    Finalizar Compra - R$ {total.toFixed(2).replace('.', ',')}
                   </Button>
                   
                   <p className="text-xs text-center text-muted-foreground mt-2">
-                    Ao clicar em "Finalizar Compra", você será redirecionado para o checkout seguro do Stripe
+                    Escolha seu método de pagamento preferido na próxima etapa
                   </p>
                 </CardContent>
               </Card>
