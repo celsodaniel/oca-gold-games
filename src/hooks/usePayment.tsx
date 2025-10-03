@@ -4,23 +4,9 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import type { CartItem } from "@/hooks/useCart";
 
-interface PaymentData {
-  cardNumber: string;
-  expiryDate: string;
-  cvv: string;
-  holderName: string;
-}
-
-interface PaymentRequest {
+interface CheckoutRequest {
   amount: number;
   items: CartItem[];
-  paymentMethod: PaymentData;
-}
-
-interface PaymentResult {
-  success: boolean;
-  transactionId?: string;
-  error?: string;
 }
 
 export const usePayment = () => {
@@ -28,103 +14,57 @@ export const usePayment = () => {
   const { user } = useAuth();
   const { toast } = useToast();
 
-  const processPayment = async (paymentRequest: PaymentRequest): Promise<PaymentResult> => {
+  const initiateCheckout = async (request: CheckoutRequest) => {
     if (!user) {
-      return { success: false, error: "Usuário não autenticado" };
+      toast({
+        variant: "destructive",
+        title: "Erro",
+        description: "Você precisa estar autenticado para continuar.",
+      });
+      return;
     }
 
     setLoading(true);
     try {
-      // Validações básicas do cartão (para UX)
-      const { cardNumber, expiryDate, cvv, holderName } = paymentRequest.paymentMethod;
-      
-      if (!cardNumber || cardNumber.replace(/\s/g, '').length < 13) {
-        return { success: false, error: "Número do cartão inválido" };
-      }
-
-      if (!expiryDate || !expiryDate.includes('/') || expiryDate.length !== 5) {
-        return { success: false, error: "Data de validade inválida" };
-      }
-
-      if (!cvv || cvv.length < 3) {
-        return { success: false, error: "CVV inválido" };
-      }
-
-      if (!holderName || holderName.trim().length < 2) {
-        return { success: false, error: "Nome do titular inválido" };
-      }
-
-      // Criar sessão de checkout do Stripe
       const { data: checkoutData, error: checkoutError } = await supabase.functions.invoke(
         'create-payment',
         {
           body: {
-            items: paymentRequest.items,
-            amount: paymentRequest.amount
+            items: request.items,
+            amount: request.amount
           }
         }
       );
 
       if (checkoutError) {
         console.error('Erro ao criar checkout:', checkoutError);
-        return { 
-          success: false, 
-          error: "Erro ao processar pagamento. Tente novamente." 
-        };
+        toast({
+          variant: "destructive",
+          title: "Erro ao processar",
+          description: "Não foi possível iniciar o pagamento. Tente novamente.",
+        });
+        return;
       }
 
       if (!checkoutData?.url) {
-        return { 
-          success: false, 
-          error: "Erro ao criar sessão de pagamento." 
-        };
+        toast({
+          variant: "destructive",
+          title: "Erro",
+          description: "Não foi possível criar a sessão de pagamento.",
+        });
+        return;
       }
 
-      // Abrir checkout do Stripe em nova aba
-      const checkoutWindow = window.open(checkoutData.url, '_blank');
+      // Redirecionar para o Stripe Checkout
+      window.location.href = checkoutData.url;
       
-      if (!checkoutWindow) {
-        return {
-          success: false,
-          error: "Por favor, permita pop-ups para completar o pagamento."
-        };
-      }
-
-      // Aguardar retorno do pagamento (simples polling)
-      // Em produção, considere usar webhooks
-      toast({
-        title: "Redirecionando para pagamento",
-        description: "Complete o pagamento na janela aberta",
-      });
-
-      // Verificar status do pagamento após um tempo
-      await new Promise(resolve => setTimeout(resolve, 3000));
-
-      const { data: verifyData, error: verifyError } = await supabase.functions.invoke(
-        'verify-payment',
-        {
-          body: { sessionId: checkoutData.sessionId }
-        }
-      );
-
-      if (verifyError || !verifyData?.success) {
-        return {
-          success: false,
-          error: "Aguardando confirmação do pagamento..."
-        };
-      }
-
-      return { 
-        success: true, 
-        transactionId: verifyData.transactionId 
-      };
-
     } catch (error) {
-      console.error('Erro no processamento do pagamento:', error);
-      return { 
-        success: false, 
-        error: "Erro inesperado no processamento do pagamento" 
-      };
+      console.error('Erro no checkout:', error);
+      toast({
+        variant: "destructive",
+        title: "Erro",
+        description: "Erro inesperado ao processar pagamento.",
+      });
     } finally {
       setLoading(false);
     }
@@ -151,7 +91,7 @@ export const usePayment = () => {
   };
 
   return {
-    processPayment,
+    initiateCheckout,
     getPaymentHistory,
     loading
   };

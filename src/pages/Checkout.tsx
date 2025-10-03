@@ -3,12 +3,9 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { CreditCard, Lock, ArrowLeft, CheckCircle } from "lucide-react";
+import { CreditCard, ArrowLeft, CheckCircle, Wallet } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 import { usePayment } from "@/hooks/usePayment";
@@ -19,20 +16,28 @@ export default function Checkout() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { cartItems, getTotalPrice, getItemCount, clearCart } = useCart();
-  const { processPayment, loading: paymentLoading } = usePayment();
+  const { initiateCheckout, loading: paymentLoading } = usePayment();
   const { toast } = useToast();
-  const [paymentData, setPaymentData] = useState({
-    cardNumber: '',
-    expiryDate: '',
-    cvv: '',
-    holderName: ''
-  });
-  const [processingPayment, setProcessingPayment] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   const total = getTotalPrice();
   const itemCount = getItemCount();
   const returnUrl = searchParams.get('return') || '/store';
+  const success = searchParams.get('success');
+  const canceled = searchParams.get('canceled');
+
+  useEffect(() => {
+    if (success === 'true') {
+      setPaymentSuccess(true);
+      clearCart();
+    } else if (canceled === 'true') {
+      toast({
+        variant: "destructive",
+        title: "Pagamento cancelado",
+        description: "Você cancelou o pagamento. Tente novamente quando desejar.",
+      });
+    }
+  }, [success, canceled, clearCart, toast]);
 
   useEffect(() => {
     if (!user) {
@@ -49,67 +54,11 @@ export default function Checkout() {
     }
   }, [user, cartItems, navigate, toast, paymentSuccess]);
 
-  const handlePayment = async () => {
-    if (!paymentData.cardNumber || !paymentData.expiryDate || !paymentData.cvv || !paymentData.holderName) {
-      toast({
-        variant: "destructive",
-        title: "Dados incompletos",
-        description: "Preencha todos os dados do cartão.",
-      });
-      return;
-    }
-
-    setProcessingPayment(true);
-    try {
-      const result = await processPayment({
-        amount: total,
-        items: cartItems,
-        paymentMethod: paymentData
-      });
-
-      if (result.success) {
-        setPaymentSuccess(true);
-        await clearCart();
-        toast({
-          title: "Pagamento aprovado!",
-          description: "Sua compra foi processada com sucesso.",
-        });
-      } else {
-        throw new Error(result.error || 'Erro no pagamento');
-      }
-    } catch (error) {
-      console.error('Erro no pagamento:', error);
-      toast({
-        variant: "destructive",
-        title: "Pagamento recusado",
-        description: "Verifique os dados do cartão e tente novamente.",
-      });
-    } finally {
-      setProcessingPayment(false);
-    }
-  };
-
-  const formatCardNumber = (value: string) => {
-    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-    const matches = v.match(/\d{4,16}/g);
-    const match = matches && matches[0] || '';
-    const parts = [];
-    for (let i = 0, len = match.length; i < len; i += 4) {
-      parts.push(match.substring(i, i + 4));
-    }
-    if (parts.length) {
-      return parts.join(' ');
-    } else {
-      return v;
-    }
-  };
-
-  const formatExpiryDate = (value: string) => {
-    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-    if (v.length >= 2) {
-      return v.substring(0, 2) + (v.length > 2 ? '/' + v.substring(2, 4) : '');
-    }
-    return v;
+  const handleCheckout = async () => {
+    await initiateCheckout({
+      amount: total,
+      items: cartItems
+    });
   };
 
   if (paymentSuccess) {
@@ -173,63 +122,57 @@ export default function Checkout() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Payment Form */}
+            {/* Payment Methods */}
             <div className="space-y-6">
               <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-foreground">
-                    <CreditCard className="h-5 w-5" />
-                    Dados do Cartão
+                    <Wallet className="h-5 w-5" />
+                    Métodos de Pagamento
                   </CardTitle>
+                  <CardDescription>
+                    Selecione um método de pagamento seguro
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="holderName">Nome do Titular</Label>
-                    <Input
-                      id="holderName"
-                      placeholder="Nome como está no cartão"
-                      value={paymentData.holderName}
-                      onChange={(e) => setPaymentData(prev => ({ ...prev, holderName: e.target.value }))}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="cardNumber">Número do Cartão</Label>
-                    <Input
-                      id="cardNumber"
-                      placeholder="1234 5678 9012 3456"
-                      value={paymentData.cardNumber}
-                      onChange={(e) => setPaymentData(prev => ({ ...prev, cardNumber: formatCardNumber(e.target.value) }))}
-                      maxLength={19}
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="expiryDate">Validade</Label>
-                      <Input
-                        id="expiryDate"
-                        placeholder="MM/AA"
-                        value={paymentData.expiryDate}
-                        onChange={(e) => setPaymentData(prev => ({ ...prev, expiryDate: formatExpiryDate(e.target.value) }))}
-                        maxLength={5}
-                      />
+                  <Button
+                    onClick={handleCheckout}
+                    disabled={paymentLoading}
+                    className="w-full h-20 bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold text-lg justify-start px-6"
+                  >
+                    <CreditCard className="h-8 w-8 mr-4" />
+                    <div className="text-left">
+                      <div className="font-bold">Cartão de Crédito</div>
+                      <div className="text-sm font-normal opacity-80">Visa, Mastercard, Elo e mais</div>
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="cvv">CVV</Label>
-                      <Input
-                        id="cvv"
-                        placeholder="123"
-                        value={paymentData.cvv}
-                        onChange={(e) => setPaymentData(prev => ({ ...prev, cvv: e.target.value.replace(/\D/g, '') }))}
-                        maxLength={4}
-                      />
+                  </Button>
+
+                  <div className="bg-muted/30 border border-border rounded-lg p-4">
+                    <div className="flex items-start gap-3">
+                      <CreditCard className="h-5 w-5 text-muted-foreground mt-0.5" />
+                      <div className="space-y-1">
+                        <p className="text-sm font-medium text-foreground">Pagamento Seguro</p>
+                        <p className="text-xs text-muted-foreground">
+                          Seus dados são protegidos com criptografia de ponta a ponta. 
+                          Processamento via Stripe, líder mundial em pagamentos online.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mt-4">
-                    <Lock className="h-4 w-4" />
-                    <span>Seus dados estão protegidos com criptografia SSL</span>
+                  <div className="pt-4 space-y-2 text-xs text-muted-foreground">
+                    <p className="flex items-center gap-2">
+                      <span className="h-1 w-1 rounded-full bg-golden"></span>
+                      Parcelamento em até 12x sem juros
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="h-1 w-1 rounded-full bg-golden"></span>
+                      Confirmação instantânea
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="h-1 w-1 rounded-full bg-golden"></span>
+                      Jogos disponíveis imediatamente após aprovação
+                    </p>
                   </div>
                 </CardContent>
               </Card>
@@ -290,12 +233,16 @@ export default function Checkout() {
                   </div>
 
                   <Button
-                    onClick={handlePayment}
-                    disabled={processingPayment || paymentLoading}
+                    onClick={handleCheckout}
+                    disabled={paymentLoading}
                     className="w-full bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold py-6 text-lg"
                   >
-                    {processingPayment ? "Processando..." : `Pagar R$ ${total.toFixed(2).replace('.', ',')}`}
+                    {paymentLoading ? "Processando..." : `Finalizar Compra - R$ ${total.toFixed(2).replace('.', ',')}`}
                   </Button>
+                  
+                  <p className="text-xs text-center text-muted-foreground mt-2">
+                    Ao clicar em "Finalizar Compra", você será redirecionado para o checkout seguro do Stripe
+                  </p>
                 </CardContent>
               </Card>
             </div>
