@@ -31,36 +31,36 @@ export interface Game {
 export const games: Game[] = [
   {
     id: "1",
-    title: "Cyberpunk 2077",
-    price: "R$ 89,99",
-    originalPrice: "R$ 149,99",
-    discount: "40%",
-    rating: 4,
+    title: "Gran Turismo 7",
+    price: "R$ 249,99",
+    originalPrice: "R$ 299,99",
+    discount: "17%",
+    rating: 5,
     image: game1,
     trailerImage: game2,
     featured: true,
     category: "action",
-    description: "Cyberpunk 2077 é um RPG de ação em mundo aberto que se passa em Night City, uma megalópole perigosa onde você luta pelo poder, glamour e imortalidade.",
-    features: ["Mundo aberto massivo", "Personalização profunda", "História envolvente", "Gráficos de última geração"],
+    description: "Gran Turismo 7 une os melhores recursos dos simuladores de corrida da série. Seja piloto de corrida, tuning expert ou designer de livery - encontre o seu caminho com três modos de jogo distintos.",
+    features: ["Mais de 400 carros", "Fotorrealismo impressionante", "Modo Campanha GT", "Multiplayer competitivo"],
     requirements: {
-      minimum: "Windows 10, Intel i5-3570K, 8GB RAM, GTX 780",
-      recommended: "Windows 10, Intel i7-4790, 12GB RAM, GTX 1060"
+      minimum: "PlayStation 4, 100GB de espaço",
+      recommended: "PlayStation 5, 100GB de espaço, SSD"
     },
     screenshots: [game1, game2, game3, game4],
-    trailer: "https://www.youtube.com/embed/8X2kIfS6fb8"
+    trailer: "https://www.youtube.com/embed/1tBUsXIkARQ"
   },
   {
     id: "2",
     title: "The Witcher 3: Wild Hunt",
-    price: "R$ 39,99",
-    originalPrice: "R$ 79,99",
-    discount: "50%",
+    price: "R$ 59,99",
+    originalPrice: "R$ 99,99",
+    discount: "40%",
     rating: 5,
     image: game2,
     trailerImage: game3,
     category: "rpg",
-    description: "Uma aventura épica em um mundo aberto com mais de 100 horas de gameplay principal e side quests.",
-    features: ["Mundo aberto gigantesco", "História rica", "Combate estratégico", "Escolhas que importam"],
+    description: "Você é Geralt de Rívia, caçador de monstros mercenário. Diante de você está uma guerra devastada, um monstro que só você pode parar.",
+    features: ["Mundo aberto gigantesco", "Mais de 100 horas de gameplay", "Escolhas que importam", "16 DLCs gratuitos"],
     requirements: {
       minimum: "Windows 7, Intel i5-2500K, 6GB RAM, GTX 660",
       recommended: "Windows 10, Intel i7-3770, 8GB RAM, GTX 770"
@@ -70,113 +70,120 @@ export const games: Game[] = [
   },
   {
     id: "3",
-    title: "Dragon's Quest: Legends",
-    price: "R$ 54,99",
-    rating: 4,
+    title: "Red Dead Redemption 2",
+    price: "R$ 149,99",
+    originalPrice: "R$ 249,99",
+    discount: "40%",
+    rating: 5,
     image: game3,
     trailerImage: game4,
+    featured: true,
     category: "adventure",
-    description: "Embarque numa jornada épica através de reinos místicos cheios de dragões, magia e aventuras.",
-    features: ["Sistema de combate estratégico", "Múltiplas classes de personagem", "História envolvente", "Co-op online"],
+    description: "A América, 1899. Arthur Morgan e a gangue Van der Linde são bandidos em fuga. Com agentes federais e os melhores caçadores de recompensas no seu encalço, a gangue precisa roubar, assaltar e lutar para sobreviver no impiedoso coração dos Estados Unidos.",
+    features: ["Mundo aberto épico", "História cinematográfica", "Red Dead Online", "Gráficos impressionantes"],
     requirements: {
-      minimum: "Windows 10, Intel i5-4570, 8GB RAM, GTX 960",
-      recommended: "Windows 10, Intel i7-6700, 16GB RAM, GTX 1070"
+      minimum: "Windows 10, Intel i5-2500K, 8GB RAM, GTX 770",
+      recommended: "Windows 10, Intel i7-4770K, 12GB RAM, GTX 1060"
     },
     screenshots: [game3, game2, game1, game4],
-    trailer: "https://www.youtube.com/embed/LH-i8IvYIcg"
+    trailer: "https://www.youtube.com/embed/gmA6MrX81z4"
   },
   {
     id: "4",
-    title: "Zombie Apocalypse: Survival",
-    price: "R$ 29,99",
-    originalPrice: "R$ 49,99",
-    discount: "40%",
-    rating: 4,
+    title: "Grand Theft Auto V",
+    price: "R$ 99,99",
+    originalPrice: "R$ 139,99",
+    discount: "29%",
+    rating: 5,
     image: game4,
     trailerImage: game5,
     featured: true,
-    category: "horror",
-    description: "Sobreviva em um mundo pós-apocalíptico infestado de zumbis. Colete recursos, construa abrigos e lute pela sobrevivência.",
-    features: ["Mundo aberto survival", "Sistema de crafting", "Multijogador cooperativo", "Dia/noite dinâmico"],
+    category: "action",
+    description: "Quando um jovem bandido, um assaltante de bancos aposentado e um psicopata aterrorizante se veem envolvidos com os criminosos mais assustadores do submundo, o governo dos EUA e a indústria do entretenimento, eles devem realizar uma série de assaltos perigosos para sobreviver.",
+    features: ["Mundo aberto de Los Santos", "3 protagonistas jogáveis", "GTA Online", "Gráficos aprimorados"],
     requirements: {
-      minimum: "Windows 10, Intel i3-6100, 8GB RAM, GTX 750 Ti",
-      recommended: "Windows 10, Intel i5-8400, 16GB RAM, GTX 1060"
+      minimum: "Windows 10, Intel i5-3470, 8GB RAM, GTX 660",
+      recommended: "Windows 10, Intel i7-4770, 8GB RAM, GTX 1060"
     },
     screenshots: [game4, game3, game2, game1],
-    trailer: "https://www.youtube.com/embed/MeB3eYk1Ze0"
+    trailer: "https://www.youtube.com/embed/QkkoHAzjnUs"
   },
   {
     id: "5",
-    title: "Knights of the Golden Realm",
-    price: "R$ 67,99",
-    originalPrice: "R$ 89,99",
-    discount: "25%",
+    title: "Elden Ring",
+    price: "R$ 199,99",
+    originalPrice: "R$ 249,99",
+    discount: "20%",
     rating: 5,
     image: game5,
     trailerImage: game6,
+    featured: true,
     category: "rpg",
-    description: "Um RPG medieval épico onde você controla um cavaleiro em busca da lendária espada dourada.",
-    features: ["Sistema de combate tático", "Personalização de equipamentos", "História ramificada", "Gráficos deslumbrantes"],
+    description: "Levante-se, Maculado, e seja guiado pela graça para brandir o poder do Anel Prístino e se tornar um Lorde Prístino nas Terras Intermédias. Um RPG de ação e fantasia sombria da FromSoftware e George R.R. Martin.",
+    features: ["Mundo aberto vasto", "Combate souls-like", "Narrativa de George R.R. Martin", "Exploração épica"],
     requirements: {
-      minimum: "Windows 10, Intel i5-6500, 8GB RAM, GTX 1050",
-      recommended: "Windows 10, Intel i7-8700, 16GB RAM, GTX 1660"
+      minimum: "Windows 10, Intel i5-8400, 12GB RAM, GTX 1060",
+      recommended: "Windows 10, Intel i7-8700K, 16GB RAM, GTX 1070"
     },
     screenshots: [game5, game4, game3, game2],
-    trailer: "https://www.youtube.com/embed/K_03gMjJVjQ"
+    trailer: "https://www.youtube.com/embed/E3Huy2cdih0"
   },
   {
     id: "6",
-    title: "Neon Speed: Underground Racing",
-    price: "R$ 45,99",
-    rating: 4,
+    title: "God of War Ragnarök",
+    price: "R$ 299,99",
+    rating: 5,
     image: game6,
     trailerImage: game7,
     featured: true,
     category: "action",
-    description: "Corridas ilegais pelas ruas neon de uma cidade futurística. Customize seu carro e domine as pistas underground.",
-    features: ["Corridas noturnas", "Customização de carros", "Modo multijogador", "Trilha sonora eletrônica"],
+    description: "Embarque numa jornada épica e comovente enquanto Kratos e Atreus lutam entre o desejo de se manterem unidos e a necessidade de se separarem. Em meio a ameaças dos Nove Reinos, eles exploram paisagens míticas impressionantes.",
+    features: ["Combate brutal", "História emocionante", "Exploração dos 9 reinos", "Gráficos de última geração"],
     requirements: {
-      minimum: "Windows 10, Intel i5-4460, 8GB RAM, GTX 960",
-      recommended: "Windows 10, Intel i7-7700, 16GB RAM, GTX 1070"
+      minimum: "PlayStation 4, 100GB de espaço",
+      recommended: "PlayStation 5, 100GB de espaço, SSD"
     },
     screenshots: [game6, game5, game4, game3],
-    trailer: "https://www.youtube.com/embed/KZ7bVn6WLMM"
+    trailer: "https://www.youtube.com/embed/hfJ4Km46A-0"
   },
   {
     id: "7",
-    title: "Haunted Manor: Dark Secrets",
-    price: "R$ 34,99",
-    originalPrice: "R$ 59,99",
-    discount: "42%",
-    rating: 4,
+    title: "Hogwarts Legacy",
+    price: "R$ 249,99",
+    originalPrice: "R$ 299,99",
+    discount: "17%",
+    rating: 5,
     image: game7,
     trailerImage: game8,
-    category: "horror",
-    description: "Explore uma mansão assombrada cheia de mistérios sombrios e criaturas sobrenaturais.",
-    features: ["Atmosfera de terror", "Puzzles complexos", "História de mistério", "Gráficos atmosféricos"],
+    featured: true,
+    category: "adventure",
+    description: "Hogwarts Legacy é um RPG de ação imersivo e de mundo aberto ambientado no universo dos livros de Harry Potter. Embarque numa jornada através de locais novos e conhecidos enquanto você explora e descobre criaturas fantásticas.",
+    features: ["Mundo aberto de Hogwarts", "Sistema de magia profundo", "Crie seu bruxo", "História original"],
     requirements: {
-      minimum: "Windows 10, Intel i3-7100, 8GB RAM, GTX 1050",
-      recommended: "Windows 10, Intel i5-8600, 16GB RAM, GTX 1060"
+      minimum: "Windows 10, Intel i5-6600, 16GB RAM, GTX 960",
+      recommended: "Windows 10, Intel i7-8700, 16GB RAM, GTX 1080 Ti"
     },
     screenshots: [game7, game6, game5, game4],
-    trailer: "https://www.youtube.com/embed/k2Y6wLZbmRE"
+    trailer: "https://www.youtube.com/embed/1O6Qstncpnc"
   },
   {
     id: "8",
-    title: "Love in Cherry Blossom",
-    price: "R$ 24,99",
+    title: "The Last of Us Part II",
+    price: "R$ 199,99",
+    originalPrice: "R$ 249,99",
+    discount: "20%",
     rating: 5,
     image: game8,
     trailerImage: game1,
-    category: "romance",
-    description: "Uma visual novel romântica ambientada no Japão durante a temporada das cerejeiras em flor.",
-    features: ["Múltiplas rotas românticas", "Arte anime de alta qualidade", "Trilha sonora emocional", "Várias finais"],
+    category: "action",
+    description: "Cinco anos após a jornada perigosa pelos Estados Unidos pós-pandêmicos, Ellie e Joel se estabeleceram em Jackson, Wyoming. Viver em uma comunidade próspera de sobreviventes lhes trouxe paz e estabilidade, apesar da ameaça constante dos infectados e de outros sobreviventes mais desesperados.",
+    features: ["Narrativa emocionante", "Gráficos fotorrealistas", "Gameplay intenso", "Modo multiplayer"],
     requirements: {
-      minimum: "Windows 7, Intel i3-4130, 4GB RAM, Integrada",
-      recommended: "Windows 10, Intel i5-6400, 8GB RAM, GTX 750"
+      minimum: "PlayStation 4, 100GB de espaço",
+      recommended: "PlayStation 5, 100GB de espaço"
     },
     screenshots: [game8, game7, game6, game5],
-    trailer: "https://www.youtube.com/embed/iNF5GQXDvz8"
+    trailer: "https://www.youtube.com/embed/II5UsqP2JAk"
   },
   {
     id: "9",
