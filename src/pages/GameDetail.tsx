@@ -41,14 +41,24 @@ const GameDetail = () => {
 
         {/* Game header */}
         <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Main Image */}
+          {/* Trailer */}
           <div>
-            <div className="aspect-video rounded-lg overflow-hidden shadow-card">
-              <img 
-                src={game.image} 
-                alt={game.title}
-                className="w-full h-full object-cover"
-              />
+            <div className="aspect-video rounded-lg overflow-hidden shadow-card bg-black">
+              {game.trailer ? (
+                <iframe
+                  src={game.trailer}
+                  title={`${game.title} trailer`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              ) : (
+                <img 
+                  src={game.image} 
+                  alt={game.title}
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
           </div>
 
