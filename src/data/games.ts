@@ -6,6 +6,12 @@ import game5 from "@/assets/game-5.jpg";
 import game6 from "@/assets/game-6.jpg";
 import game7 from "@/assets/game-7.jpg";
 import game8 from "@/assets/game-8.jpg";
+import game9 from "@/assets/game-9.jpg";
+import game10 from "@/assets/game-10.jpg";
+import game11 from "@/assets/game-11.jpg";
+import game12 from "@/assets/game-12.jpg";
+import game13 from "@/assets/game-13.jpg";
+import game14 from "@/assets/game-14.jpg";
 
 export interface Game {
   id: string;
@@ -184,6 +190,116 @@ export const games: Game[] = [
     },
     screenshots: [game8, game7, game6, game5],
     trailer: "https://www.youtube.com/embed/II5UsqP2JAk"
+  },
+  {
+    id: "9",
+    title: "Marvel's Spider-Man 2",
+    price: "R$ 299,99",
+    rating: 5,
+    image: game9,
+    trailerImage: game1,
+    featured: true,
+    category: "action",
+    description: "Spider-Men Peter Parker e Miles Morales enfrentam o teste definitivo de força dentro e fora da máscara enquanto lutam para salvar a cidade, uns aos outros e aqueles que amam, da monstruosa Venom e da nova ameaça simbionte.",
+    features: ["Dois Spider-Men jogáveis", "Nova York de mundo aberto", "Trajes simbiontes", "Combate aprimorado"],
+    requirements: {
+      minimum: "PlayStation 5, 100GB de espaço",
+      recommended: "PlayStation 5, 100GB de espaço, SSD"
+    },
+    screenshots: [game9, game1, game2, game3],
+    trailer: "https://www.youtube.com/embed/nq1M_Wc4FIc"
+  },
+  {
+    id: "10",
+    title: "Final Fantasy VII Rebirth",
+    price: "R$ 349,99",
+    rating: 5,
+    image: game10,
+    trailerImage: game2,
+    featured: true,
+    category: "rpg",
+    description: "Final Fantasy VII Rebirth é a aguardada sequência de Final Fantasy VII Remake, continuando a jornada épica de Cloud e seus companheiros enquanto exploram um vasto mundo além de Midgar.",
+    features: ["Mundo aberto massivo", "Sistema de combate dinâmico", "História épica", "Gráficos de última geração"],
+    requirements: {
+      minimum: "PlayStation 5, 150GB de espaço",
+      recommended: "PlayStation 5, 150GB de espaço, SSD"
+    },
+    screenshots: [game10, game2, game3, game4],
+    trailer: "https://www.youtube.com/embed/nAJbzbqQsJY"
+  },
+  {
+    id: "11",
+    title: "Tekken 8",
+    price: "R$ 299,99",
+    originalPrice: "R$ 349,99",
+    discount: "14%",
+    rating: 5,
+    image: game11,
+    trailerImage: game3,
+    category: "action",
+    description: "Tekken 8 traz a lendária franquia de luta para uma nova era com gráficos impressionantes e um sistema de combate renovado. Descubra o destino da família Mishima neste novo capítulo emocionante.",
+    features: ["32 personagens", "Modo história cinemático", "Multiplayer online", "Sistema Heat revolucionário"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-6600K, 8GB RAM, GTX 1050 Ti",
+      recommended: "Windows 10, Intel i7-7700K, 16GB RAM, RTX 2070"
+    },
+    screenshots: [game11, game3, game4, game5],
+    trailer: "https://www.youtube.com/embed/Kl5RCGpZ5FM"
+  },
+  {
+    id: "12",
+    title: "Helldivers 2",
+    price: "R$ 159,99",
+    rating: 5,
+    image: game12,
+    trailerImage: game4,
+    category: "action",
+    description: "Helldivers 2 é um shooter cooperativo de terceira pessoa onde você e seu esquadrão lutam em uma guerra galáctica pela liberdade e democracia. Trabalhe em equipe para completar missões desafiadoras em planetas hostis.",
+    features: ["Co-op para 4 jogadores", "Mundos procedurais", "Arsenal massivo", "Ação frenética"],
+    requirements: {
+      minimum: "Windows 10, Intel i7-4790K, 8GB RAM, GTX 1050 Ti",
+      recommended: "Windows 10, Intel i7-9700K, 16GB RAM, RTX 2060"
+    },
+    screenshots: [game12, game4, game5, game6],
+    trailer: "https://www.youtube.com/embed/pzBUg861-Ts"
+  },
+  {
+    id: "13",
+    title: "Dragon Ball: Sparking! ZERO",
+    price: "R$ 299,99",
+    originalPrice: "R$ 349,99",
+    discount: "14%",
+    rating: 5,
+    image: game13,
+    trailerImage: game5,
+    category: "action",
+    description: "Dragon Ball: Sparking! ZERO traz de volta o lendário estilo de jogo de Budokai Tenkaichi em um novo capítulo. Batalhe com mais de 160 personagens em arenas 3D destruíveis com gráficos de última geração.",
+    features: ["Mais de 160 personagens", "Batalhas épicas 3D", "Modo história extenso", "Transformações icônicas"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-9600K, 8GB RAM, GTX 1660 Super",
+      recommended: "Windows 10, Intel i7-9700K, 16GB RAM, RTX 2070 Super"
+    },
+    screenshots: [game13, game5, game6, game7],
+    trailer: "https://www.youtube.com/embed/pRQWKAтериториtU"
+  },
+  {
+    id: "14",
+    title: "Resident Evil 4 Remake",
+    price: "R$ 199,99",
+    originalPrice: "R$ 249,99",
+    discount: "20%",
+    rating: 5,
+    image: game14,
+    trailerImage: game6,
+    category: "action",
+    description: "O clássico de survival horror Resident Evil 4 foi reconstruído do zero com gráficos modernos e jogabilidade aprimorada. Siga Leon S. Kennedy em sua missão de resgatar a filha do presidente em uma vila europeia aterrorizante.",
+    features: ["Gráficos fotorrealistas", "Jogabilidade modernizada", "Horror de sobrevivência intenso", "Inimigos reimaginados"],
+    requirements: {
+      minimum: "Windows 10, Intel i5-7500, 16GB RAM, GTX 1050 Ti",
+      recommended: "Windows 10, Intel i7-8700, 16GB RAM, RTX 2060"
+    },
+    screenshots: [game14, game6, game7, game8],
+    trailer: "https://www.youtube.com/embed/E69tKrfEQag"
   }
 ];
 
