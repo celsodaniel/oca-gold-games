@@ -50,11 +50,11 @@ export const GameCard = ({
   return (
     <Card className={`group overflow-hidden bg-card border-border hover:border-golden/50 transition-all duration-300 hover:shadow-golden ${featured ? 'ring-2 ring-golden/30' : ''}`}>
       <Link to={`/game/${id}`}>
-        <div className="relative aspect-[3/4] overflow-hidden">
+        <div className="relative aspect-[3/4] overflow-hidden bg-black/5">
           <img 
             src={image} 
             alt={title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
           />
           {discount && (
             <div className="absolute top-2 left-2 bg-gradient-golden text-black-deep px-2 py-1 rounded-md text-sm font-bold">
