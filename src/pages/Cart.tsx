@@ -200,7 +200,7 @@ export default function Cart() {
                     <Button 
                       className="w-full bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold py-6 text-lg"
                       disabled={cartItems.length === 0}
-                      onClick={() => window.open('/checkout?return=/cart', '_blank')}
+                      onClick={() => navigate('/payment-methods')}
                     >
                       Finalizar Compra
                     </Button>
