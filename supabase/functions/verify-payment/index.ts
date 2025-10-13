@@ -53,6 +53,9 @@ serve(async (req) => {
     // Parse items from metadata
     const items = JSON.parse(session.metadata?.items || "[]");
     const amount = session.amount_total ? session.amount_total / 100 : 0;
+    const couponCode = session.metadata?.coupon_code || null;
+
+    console.log("[VERIFY-PAYMENT] Transaction details:", { amount, couponCode, itemCount: items.length });
 
     // Create transaction in database
     const { error: transactionError } = await supabaseClient.rpc('create_transaction', {
@@ -61,12 +64,20 @@ serve(async (req) => {
       amount: amount,
       status: 'completed',
       payment_method: 'credit_card',
-      items: JSON.stringify(items)
+      items: JSON.stringify(items),
+      coupon_code: couponCode,
+      discount_amount: 0 // Could calculate from original price if needed
     });
 
     if (transactionError) {
       console.error("[VERIFY-PAYMENT] Error creating transaction:", transactionError);
       throw new Error("Failed to create transaction");
+    }
+
+    // Increment coupon usage if one was used
+    if (couponCode) {
+      console.log("[VERIFY-PAYMENT] Incrementing coupon usage:", couponCode);
+      await supabaseClient.rpc('use_coupon', { coupon_code: couponCode });
     }
 
     // Add games to user library

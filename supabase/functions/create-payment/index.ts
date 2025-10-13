@@ -32,11 +32,12 @@ serve(async (req) => {
     console.log("[CREATE-PAYMENT] User authenticated:", user.email);
 
     // Get payment data from request
-    const { items, amount, payment_method_types } = await req.json();
+    const { items, amount, payment_method_types, coupon_code } = await req.json();
     console.log("[CREATE-PAYMENT] Processing payment:", { 
       amount, 
       itemCount: items.length,
-      paymentMethods: payment_method_types 
+      paymentMethods: payment_method_types,
+      couponCode: coupon_code 
     });
 
     // Initialize Stripe
@@ -79,6 +80,7 @@ serve(async (req) => {
       cancel_url: `${req.headers.get("origin")}/payment-methods?canceled=true`,
       metadata: {
         user_id: user.id,
+        coupon_code: coupon_code || null,
         items: JSON.stringify(items.map((item: any) => ({
           game_id: item.game_id,
           title: item.game?.title,

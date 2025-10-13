@@ -6,15 +6,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft, Tag, X } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
+import { useCoupon } from "@/hooks/useCoupon";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Cart() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { cartItems, loading, removeFromCart, updateQuantity, clearCart, getTotalPrice, getItemCount } = useCart();
+  const { couponCode, setCouponCode, appliedCoupon, validateCoupon, removeCoupon, validating } = useCoupon();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -40,7 +43,16 @@ export default function Cart() {
       });
       return;
     }
-    navigate('/payment-methods');
+
+    // Passar informações do cupom para a página de pagamento
+    const checkoutData = {
+      cartItems,
+      total,
+      finalTotal,
+      coupon: appliedCoupon,
+    };
+    
+    navigate('/payment-methods', { state: checkoutData });
   };
 
   if (!user) {
@@ -49,6 +61,8 @@ export default function Cart() {
 
   const total = getTotalPrice();
   const itemCount = getItemCount();
+  const discount = appliedCoupon?.discount || 0;
+  const finalTotal = total - discount;
 
   return (
     <div className="min-h-screen bg-gradient-black">
@@ -201,11 +215,59 @@ export default function Cart() {
                     <CardTitle className="text-foreground">Resumo do Pedido</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
+                    {/* Cupom de Desconto */}
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-foreground flex items-center gap-2">
+                        <Tag className="h-4 w-4" />
+                        Cupom de Desconto
+                      </label>
+                      {appliedCoupon ? (
+                        <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                          <Tag className="h-4 w-4 text-green-500" />
+                          <span className="flex-1 text-sm font-medium text-green-500">
+                            {appliedCoupon.code}
+                          </span>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6 text-green-500 hover:text-green-600"
+                            onClick={removeCoupon}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="flex gap-2">
+                          <Input
+                            placeholder="Digite o cupom"
+                            value={couponCode}
+                            onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                            className="flex-1"
+                          />
+                          <Button
+                            onClick={() => validateCoupon(total)}
+                            disabled={validating || !couponCode.trim()}
+                            variant="outline"
+                          >
+                            {validating ? "..." : "Aplicar"}
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+
+                    <Separator />
+
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Subtotal ({itemCount} item{itemCount > 1 ? 's' : ''})</span>
                         <span className="text-foreground">R$ {total.toFixed(2).replace('.', ',')}</span>
                       </div>
+                      {appliedCoupon && (
+                        <div className="flex justify-between text-sm">
+                          <span className="text-green-500">Desconto</span>
+                          <span className="text-green-500">- R$ {discount.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                      )}
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Taxa de processamento</span>
                         <span className="text-foreground">R$ 0,00</span>
@@ -216,12 +278,13 @@ export default function Cart() {
 
                     <div className="flex justify-between font-semibold text-lg">
                       <span className="text-foreground">Total</span>
-                      <span className="text-golden">R$ {total.toFixed(2).replace('.', ',')}</span>
+                      <span className="text-golden">R$ {finalTotal.toFixed(2).replace('.', ',')}</span>
                     </div>
 
                     <Button 
                       className="w-full bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold py-6 text-lg"
                       onClick={handleCheckout}
+                      disabled={loading}
                     >
                       Finalizar Compra
                     </Button>

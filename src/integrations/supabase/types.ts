@@ -44,6 +44,45 @@ export type Database = {
         }
         Relationships: []
       }
+      coupons: {
+        Row: {
+          active: boolean | null
+          code: string
+          created_at: string
+          current_uses: number | null
+          discount_type: string
+          discount_value: number
+          expires_at: string | null
+          id: string
+          max_uses: number | null
+          min_purchase: number | null
+        }
+        Insert: {
+          active?: boolean | null
+          code: string
+          created_at?: string
+          current_uses?: number | null
+          discount_type: string
+          discount_value: number
+          expires_at?: string | null
+          id?: string
+          max_uses?: number | null
+          min_purchase?: number | null
+        }
+        Update: {
+          active?: boolean | null
+          code?: string
+          created_at?: string
+          current_uses?: number | null
+          discount_type?: string
+          discount_value?: number
+          expires_at?: string | null
+          id?: string
+          max_uses?: number | null
+          min_purchase?: number | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -86,7 +125,9 @@ export type Database = {
       transactions: {
         Row: {
           amount: number
+          coupon_code: string | null
           created_at: string
+          discount_amount: number | null
           id: string
           items: Json | null
           payment_method: string
@@ -97,7 +138,9 @@ export type Database = {
         }
         Insert: {
           amount: number
+          coupon_code?: string | null
           created_at?: string
+          discount_amount?: number | null
           id?: string
           items?: Json | null
           payment_method: string
@@ -108,7 +151,9 @@ export type Database = {
         }
         Update: {
           amount?: number
+          coupon_code?: string | null
           created_at?: string
+          discount_amount?: number | null
           id?: string
           items?: Json | null
           payment_method?: string
@@ -164,7 +209,9 @@ export type Database = {
         Args: { user_id: string }
         Returns: {
           amount: number
+          coupon_code: string | null
           created_at: string
+          discount_amount: number | null
           id: string
           items: Json | null
           payment_method: string
@@ -172,6 +219,18 @@ export type Database = {
           transaction_id: string
           updated_at: string
           user_id: string
+        }[]
+      }
+      use_coupon: {
+        Args: { coupon_code: string }
+        Returns: undefined
+      }
+      validate_coupon: {
+        Args: { cart_total: number; coupon_code: string }
+        Returns: {
+          discount_amount: number
+          message: string
+          valid: boolean
         }[]
       }
     }

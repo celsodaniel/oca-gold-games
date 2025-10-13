@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, CreditCard, QrCode, FileText, CheckCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, CreditCard, QrCode, FileText, CheckCircle, Tag } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
@@ -14,13 +15,23 @@ import { supabase } from "@/integrations/supabase/client";
 export default function PaymentMethods() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const { cartItems, getTotalPrice, getItemCount, loading: cartLoading } = useCart();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
 
-  const total = getTotalPrice();
+  const checkoutData = location.state as {
+    cartItems: any[];
+    total: number;
+    finalTotal: number;
+    coupon: { code: string; discount: number } | null;
+  } | null;
+
+  const total = checkoutData?.total || getTotalPrice();
+  const finalTotal = checkoutData?.finalTotal || total;
+  const appliedCoupon = checkoutData?.coupon || null;
   const itemCount = getItemCount();
   const success = searchParams.get('success');
 
@@ -65,8 +76,9 @@ export default function PaymentMethods() {
         {
           body: {
             items: cartItems,
-            amount: total,
-            payment_method_types: paymentMethodTypes[method]
+            amount: finalTotal,
+            payment_method_types: paymentMethodTypes[method],
+            coupon_code: appliedCoupon?.code
           }
         }
       );
@@ -344,9 +356,21 @@ export default function PaymentMethods() {
                   <span className="text-muted-foreground">Subtotal ({itemCount} item{itemCount > 1 ? 's' : ''})</span>
                   <span className="text-foreground">R$ {total.toFixed(2).replace('.', ',')}</span>
                 </div>
+                {appliedCoupon && (
+                  <>
+                    <div className="flex justify-between text-sm items-center">
+                      <span className="text-green-500 flex items-center gap-1">
+                        <Tag className="h-3 w-3" />
+                        Desconto ({appliedCoupon.code})
+                      </span>
+                      <span className="text-green-500">- R$ {appliedCoupon.discount.toFixed(2).replace('.', ',')}</span>
+                    </div>
+                  </>
+                )}
+                <Separator />
                 <div className="flex justify-between font-semibold text-lg">
                   <span className="text-foreground">Total</span>
-                  <span className="text-golden">R$ {total.toFixed(2).replace('.', ',')}</span>
+                  <span className="text-golden">R$ {finalTotal.toFixed(2).replace('.', ',')}</span>
                 </div>
               </div>
             </CardContent>
