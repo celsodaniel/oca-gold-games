@@ -9,17 +9,31 @@ import { Badge } from "@/components/ui/badge";
 import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Cart() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { cartItems, loading, removeFromCart, updateQuantity, clearCart, getTotalPrice, getItemCount } = useCart();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
     }
   }, [user, navigate]);
+
+  const handleCheckout = () => {
+    if (cartItems.length === 0) {
+      toast({
+        variant: "destructive",
+        title: "Carrinho vazio",
+        description: "Adicione itens ao carrinho antes de finalizar a compra.",
+      });
+      return;
+    }
+    navigate('/payment-methods');
+  };
 
   if (!user) {
     return null;
@@ -199,8 +213,7 @@ export default function Cart() {
 
                     <Button 
                       className="w-full bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold py-6 text-lg"
-                      disabled={cartItems.length === 0}
-                      onClick={() => navigate('/payment-methods')}
+                      onClick={handleCheckout}
                     >
                       Finalizar Compra
                     </Button>
