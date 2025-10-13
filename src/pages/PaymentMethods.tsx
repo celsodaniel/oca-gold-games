@@ -15,7 +15,7 @@ export default function PaymentMethods() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { cartItems, getTotalPrice, getItemCount } = useCart();
+  const { cartItems, getTotalPrice, getItemCount, loading: cartLoading } = useCart();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
@@ -30,14 +30,15 @@ export default function PaymentMethods() {
       return;
     }
     
-    if (cartItems.length === 0 && success !== 'true') {
+    // Só valida carrinho vazio após o carregamento terminar
+    if (!cartLoading && cartItems.length === 0 && success !== 'true') {
       toast({
         title: "Carrinho vazio",
         description: "Adicione itens ao carrinho antes de continuar.",
       });
       navigate('/store');
     }
-  }, [user, cartItems, navigate, toast, success]);
+  }, [user, cartItems, cartLoading, navigate, toast, success]);
 
   useEffect(() => {
     if (success === 'true') {
@@ -140,8 +141,30 @@ export default function PaymentMethods() {
     );
   }
 
-  if (!user || cartItems.length === 0) {
+  if (!user || (cartItems.length === 0 && !cartLoading)) {
     return null;
+  }
+
+  // Mostrar loading enquanto carrega o carrinho
+  if (cartLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-black">
+        <Header />
+        <main className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="animate-pulse space-y-8">
+              <div className="h-12 bg-muted rounded w-1/3"></div>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="h-64 bg-muted rounded"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
   }
 
   return (
