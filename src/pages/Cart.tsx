@@ -24,6 +24,14 @@ export default function Cart() {
   }, [user, navigate]);
 
   const handleCheckout = () => {
+    if (loading) {
+      toast({
+        title: "Carregando...",
+        description: "Aguarde enquanto carregamos os itens do carrinho.",
+      });
+      return;
+    }
+
     if (cartItems.length === 0) {
       toast({
         variant: "destructive",
