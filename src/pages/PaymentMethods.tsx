@@ -37,21 +37,26 @@ export default function PaymentMethods() {
   const itemCount = checkoutItems.length;
   const success = searchParams.get('success');
 
+  // Considerar estado passado via navegação ao validar carrinho vazio
+  const hasCheckoutState = !!checkoutData;
+  const itemsToValidate = hasCheckoutState ? checkoutItems : cartItems;
+  const isLoading = hasCheckoutState ? false : cartLoading;
+
   useEffect(() => {
     if (!user) {
       navigate('/login');
       return;
     }
-    
-    // Só valida carrinho vazio após o carregamento terminar
-    if (!cartLoading && cartItems.length === 0 && success !== 'true') {
+
+    // Validar carrinho considerando o estado de checkout passado via navegação
+    if (!isLoading && itemsToValidate.length === 0 && success !== 'true') {
       toast({
         title: "Carrinho vazio",
         description: "Adicione itens ao carrinho antes de continuar.",
       });
       navigate('/store');
     }
-  }, [user, cartItems, cartLoading, navigate, toast, success]);
+  }, [user, isLoading, itemsToValidate.length, navigate, toast, success]);
 
   useEffect(() => {
     if (success === 'true') {
@@ -155,7 +160,7 @@ export default function PaymentMethods() {
     );
   }
 
-  if (!user || (cartItems.length === 0 && !cartLoading)) {
+  if (!user || (!hasCheckoutState && cartItems.length === 0 && !cartLoading)) {
     return null;
   }
 
