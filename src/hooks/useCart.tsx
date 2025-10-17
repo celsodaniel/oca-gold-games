@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
@@ -23,7 +23,7 @@ export const useCart = () => {
   const { user } = useAuth();
   const { toast } = useToast();
 
-  const loadCart = async () => {
+  const loadCart = useCallback(async () => {
     if (!user) {
       setCartItems([]);
       return;
@@ -64,7 +64,7 @@ export const useCart = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user, toast]);
 
   const addToCart = async (gameId: string, price: number) => {
     if (!user) {
@@ -205,7 +205,7 @@ export const useCart = () => {
 
   useEffect(() => {
     loadCart();
-  }, [user]);
+  }, [loadCart]);
 
   return {
     cartItems,

@@ -1,16 +1,35 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ShoppingCart, Star, Heart, Share2, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/hooks/useAuth";
 
 import { games } from "@/data/games";
 
 const GameDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const { user } = useAuth();
   const game = games.find(g => g.id === id);
+
+  const handleAddToCart = () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    if (!game || game.price === "Free to Play") {
+      return;
+    }
+
+    const numericPrice = parseFloat(game.price.replace("R$ ", "").replace(",", "."));
+    addToCart(id!, numericPrice);
+  };
 
   if (!game) {
     return (
@@ -99,9 +118,13 @@ const GameDetail = () => {
 
               {/* Actions */}
               <div className="flex gap-3 mb-6">
-                <Button className="flex-1 bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold">
+                <Button 
+                  className="flex-1 bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold"
+                  onClick={handleAddToCart}
+                  disabled={game.price === "Free to Play"}
+                >
                   <ShoppingCart className="h-5 w-5 mr-2" />
-                  Adicionar ao Carrinho
+                  {game.price === "Free to Play" ? "Jogar Grátis" : "Adicionar ao Carrinho"}
                 </Button>
                 <Button variant="outline" size="icon">
                   <Heart className="h-5 w-5" />
