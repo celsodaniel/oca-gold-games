@@ -29,10 +29,12 @@ export default function PaymentMethods() {
     coupon: { code: string; discount: number } | null;
   } | null;
 
+  // Usar dados do checkout se disponíveis, caso contrário usar dados do carrinho atual
+  const checkoutItems = checkoutData?.cartItems || cartItems;
   const total = checkoutData?.total || getTotalPrice();
   const finalTotal = checkoutData?.finalTotal || total;
   const appliedCoupon = checkoutData?.coupon || null;
-  const itemCount = getItemCount();
+  const itemCount = checkoutItems.length;
   const success = searchParams.get('success');
 
   useEffect(() => {
@@ -71,11 +73,11 @@ export default function PaymentMethods() {
         boleto: ['boleto']
       };
 
-      const { data: checkoutData, error: checkoutError } = await supabase.functions.invoke(
+      const { data: paymentData, error: checkoutError } = await supabase.functions.invoke(
         'create-payment',
         {
           body: {
-            items: cartItems,
+            items: checkoutItems,
             amount: finalTotal,
             payment_method_types: paymentMethodTypes[method],
             coupon_code: appliedCoupon?.code
@@ -93,7 +95,7 @@ export default function PaymentMethods() {
         return;
       }
 
-      if (!checkoutData?.url) {
+      if (!paymentData?.url) {
         toast({
           variant: "destructive",
           title: "Erro",
@@ -103,7 +105,7 @@ export default function PaymentMethods() {
       }
 
       // Redirecionar para o Stripe Checkout
-      window.location.href = checkoutData.url;
+      window.location.href = paymentData.url;
       
     } catch (error) {
       console.error('Erro no checkout:', error);
@@ -323,7 +325,7 @@ export default function PaymentMethods() {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {cartItems.map((item) => (
+                {checkoutItems.map((item) => (
                   <div key={item.id} className="flex justify-between items-center">
                     <div className="flex items-center gap-3">
                       {item.game?.image && (
