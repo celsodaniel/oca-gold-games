@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,12 +9,18 @@ import game1 from "@/assets/game-1.jpg";
 import game2 from "@/assets/game-2.jpg";
 import game3 from "@/assets/game-3.jpg";
 import game4 from "@/assets/game-4.jpg";
+import game5 from "@/assets/game-5.jpg";
+import game6 from "@/assets/game-6.jpg";
+import game7 from "@/assets/game-7.jpg";
+import game8 from "@/assets/game-8.jpg";
+import game9 from "@/assets/game-9.jpg";
+import game10 from "@/assets/game-10.jpg";
 
 const newsArticles = [
   {
     id: 1,
     title: "Grandes Lançamentos de 2024: Os Jogos Mais Esperados",
-    excerpt: "Descubra os títulos que prometem revolucionar o mundo dos games neste ano.",
+    excerpt: "Descubra os títulos que prometem revolucionar o mundo dos games neste ano. Novos mundos abertos, gráficos de última geração e histórias emocionantes aguardam os jogadores.",
     image: game1,
     category: "Lançamentos",
     date: "2024-01-15",
@@ -23,7 +30,7 @@ const newsArticles = [
   {
     id: 2,
     title: "Torneio de Esports Paçoca Games: Inscrições Abertas",
-    excerpt: "Participe do maior torneio da plataforma com premiação de R$ 100.000.",
+    excerpt: "Participe do maior torneio da plataforma com premiação de R$ 100.000. Mostre suas habilidades e compete contra os melhores jogadores do Brasil.",
     image: game2,
     category: "Esports",
     date: "2024-01-12",
@@ -32,7 +39,7 @@ const newsArticles = [
   {
     id: 3,
     title: "Análise: Os RPGs Que Definiram a Década",
-    excerpt: "Uma retrospectiva dos jogos de RPG mais influentes dos últimos 10 anos.",
+    excerpt: "Uma retrospectiva dos jogos de RPG mais influentes dos últimos 10 anos. Das histórias épicas aos sistemas inovadores de combate.",
     image: game3,
     category: "Análise",
     date: "2024-01-10",
@@ -41,17 +48,78 @@ const newsArticles = [
   {
     id: 4,
     title: "Dicas e Truques: Como Melhorar no Competitive Gaming",
-    excerpt: "Estratégias profissionais para se destacar nos jogos competitivos.",
+    excerpt: "Estratégias profissionais para se destacar nos jogos competitivos. Aprenda técnicas avançadas, posicionamento e comunicação em equipe.",
     image: game4,
     category: "Dicas",
     date: "2024-01-08",
     author: "Maria Santos"
+  },
+  {
+    id: 5,
+    title: "Promoção Relâmpago: Até 80% de Desconto em Jogos AAA",
+    excerpt: "Aproveite descontos incríveis nos maiores títulos do mercado. Ofertas por tempo limitado em jogos premiados e aclamados pela crítica.",
+    image: game5,
+    category: "Promoções",
+    date: "2024-01-07",
+    author: "Equipe Paçoca"
+  },
+  {
+    id: 6,
+    title: "Review: O Novo FPS Que Está Dominando as Paradas",
+    excerpt: "Analisamos a fundo o shooter que conquistou milhões de jogadores em todo o mundo. Gráficos impressionantes e gameplay viciante.",
+    image: game6,
+    category: "Análise",
+    date: "2024-01-06",
+    author: "Pedro Costa"
+  },
+  {
+    id: 7,
+    title: "Lançamento da Semana: Aventura Indie Surpreende Críticos",
+    excerpt: "Conheça o jogo independente que está recebendo notas perfeitas. Uma história emocionante com mecânicas inovadoras de puzzle.",
+    image: game7,
+    category: "Lançamentos",
+    date: "2024-01-05",
+    author: "Ana Oliveira"
+  },
+  {
+    id: 8,
+    title: "Guia Completo: Melhores Builds Para Iniciantes",
+    excerpt: "Aprenda as melhores configurações de personagem para começar sua jornada com o pé direito. Dicas de equipamentos e habilidades essenciais.",
+    image: game8,
+    category: "Dicas",
+    date: "2024-01-04",
+    author: "Carlos Mendes"
+  },
+  {
+    id: 9,
+    title: "Campeonato Mundial: Finais Confirmadas Para Março",
+    excerpt: "As equipes classificadas para a grande final foram definidas. Acompanhe a preparação dos times e as expectativas para os confrontos decisivos.",
+    image: game9,
+    category: "Esports",
+    date: "2024-01-03",
+    author: "Equipe Paçoca"
+  },
+  {
+    id: 10,
+    title: "Black Friday Antecipada: Jogos a Partir de R$ 9,99",
+    excerpt: "Não perca a oportunidade de expandir sua biblioteca com preços jamais vistos. Centenas de títulos em promoção especial.",
+    image: game10,
+    category: "Promoções",
+    date: "2024-01-02",
+    author: "Equipe Paçoca"
   }
 ];
 
+const categories = ["Todas", "Lançamentos", "Análise", "Esports", "Dicas", "Promoções"];
+
 const News = () => {
+  const [selectedCategory, setSelectedCategory] = useState("Todas");
+  
   const featuredArticle = newsArticles.find(article => article.featured);
-  const regularArticles = newsArticles.filter(article => !article.featured);
+  
+  const filteredArticles = selectedCategory === "Todas" 
+    ? newsArticles.filter(article => !article.featured)
+    : newsArticles.filter(article => !article.featured && article.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-background">
@@ -138,24 +206,20 @@ const News = () => {
         <section className="py-16 px-4 bg-black-light">
           <div className="container mx-auto">
             <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <Button variant="outline" className="border-golden text-golden hover:bg-golden hover:text-black-deep">
-                Todas
-              </Button>
-              <Button variant="ghost" className="hover:text-golden">
-                Lançamentos
-              </Button>
-              <Button variant="ghost" className="hover:text-golden">
-                Análises
-              </Button>
-              <Button variant="ghost" className="hover:text-golden">
-                Esports
-              </Button>
-              <Button variant="ghost" className="hover:text-golden">
-                Dicas
-              </Button>
-              <Button variant="ghost" className="hover:text-golden">
-                Promoções
-              </Button>
+              {categories.map((category) => (
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? "outline" : "ghost"}
+                  className={
+                    selectedCategory === category
+                      ? "border-golden text-golden hover:bg-golden hover:text-black-deep"
+                      : "hover:text-golden"
+                  }
+                  onClick={() => setSelectedCategory(category)}
+                >
+                  {category}
+                </Button>
+              ))}
             </div>
           </div>
         </section>
@@ -174,7 +238,14 @@ const News = () => {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {regularArticles.map((article) => (
+              {filteredArticles.length === 0 ? (
+                <div className="col-span-full text-center py-12">
+                  <p className="text-xl text-muted-foreground">
+                    Nenhuma notícia encontrada nesta categoria.
+                  </p>
+                </div>
+              ) : (
+                filteredArticles.map((article) => (
                 <Card key={article.id} className="group overflow-hidden bg-card border-border hover:border-golden/50 transition-all duration-300 hover:shadow-golden-glow">
                   <div className="relative">
                     <img 
@@ -215,7 +286,8 @@ const News = () => {
                     </Button>
                   </CardContent>
                 </Card>
-              ))}
+              ))
+              )}
             </div>
           </div>
         </section>
