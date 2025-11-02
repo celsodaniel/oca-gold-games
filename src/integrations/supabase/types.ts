@@ -220,11 +220,14 @@ export type Database = {
           updated_at: string
           user_id: string
         }[]
+        SetofOptions: {
+          from: "*"
+          to: "transactions"
+          isOneToOne: false
+          isSetofReturn: true
+        }
       }
-      use_coupon: {
-        Args: { coupon_code: string }
-        Returns: undefined
-      }
+      use_coupon: { Args: { coupon_code: string }; Returns: undefined }
       validate_coupon: {
         Args: { cart_total: number; coupon_code: string }
         Returns: {
