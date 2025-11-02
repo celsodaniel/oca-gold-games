@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -12,6 +12,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 import { useCoupon } from "@/hooks/useCoupon";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function Cart() {
   const { user } = useAuth();
@@ -19,6 +20,7 @@ export default function Cart() {
   const { cartItems, loading, removeFromCart, updateQuantity, clearCart, getTotalPrice, getItemCount } = useCart();
   const { couponCode, setCouponCode, appliedCoupon, validateCoupon, removeCoupon, validating } = useCoupon();
   const { toast } = useToast();
+  const [processingFree, setProcessingFree] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -26,8 +28,8 @@ export default function Cart() {
     }
   }, [user, navigate]);
 
-  const handleCheckout = () => {
-    if (loading) {
+  const handleCheckout = async () => {
+    if (loading || processingFree) {
       toast({
         title: "Carregando...",
         description: "Aguarde enquanto carregamos os itens do carrinho.",
@@ -41,6 +43,51 @@ export default function Cart() {
         title: "Carrinho vazio",
         description: "Adicione itens ao carrinho antes de finalizar a compra.",
       });
+      return;
+    }
+
+    // Se o total for 0 (compra gratuita com cupom), processar diretamente
+    if (finalTotal === 0) {
+      setProcessingFree(true);
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        const items = cartItems.map(item => ({
+          game_id: item.game_id,
+          title: item.game?.title || `Jogo ${item.game_id}`,
+          price: item.price,
+          quantity: item.quantity,
+        }));
+
+        const { error } = await supabase.functions.invoke('process-free-purchase', {
+          body: {
+            items,
+            couponCode: appliedCoupon?.code,
+          },
+          headers: {
+            Authorization: `Bearer ${session?.access_token}`,
+          },
+        });
+
+        if (error) throw error;
+
+        toast({
+          title: "Compra confirmada!",
+          description: "Seus jogos foram adicionados à sua biblioteca. Verifique seu email!",
+        });
+
+        await clearCart();
+        navigate('/profile?tab=library');
+      } catch (error) {
+        console.error('Error processing free purchase:', error);
+        toast({
+          variant: "destructive",
+          title: "Erro ao processar compra",
+          description: "Não foi possível processar sua compra gratuita. Tente novamente.",
+        });
+      } finally {
+        setProcessingFree(false);
+      }
       return;
     }
 
@@ -284,9 +331,9 @@ export default function Cart() {
                     <Button 
                       className="w-full bg-gradient-golden hover:bg-gradient-golden-dark text-black-deep font-semibold py-6 text-lg"
                       onClick={handleCheckout}
-                      disabled={loading}
+                      disabled={loading || processingFree}
                     >
-                      Finalizar Compra
+                      {processingFree ? "Processando..." : "Finalizar Compra"}
                     </Button>
 
                     <Button 
