@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@18.5.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { Resend } from "npm:resend@2.0.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -92,6 +93,58 @@ serve(async (req) => {
     }
 
     console.log("[VERIFY-PAYMENT] Payment processed successfully");
+
+    // Enviar email de confirmação
+    try {
+      const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+      const gamesList = items.map((item: any) => `
+        <li style="margin-bottom: 10px;">
+          <strong>${item.title}</strong> - R$ ${item.price.toFixed(2)}
+        </li>
+      `).join('');
+
+      const paymentMethod = session.payment_method_types?.[0] === 'pix' ? 'PIX' : 
+                           session.payment_method_types?.[0] === 'boleto' ? 'Boleto' : 
+                           'Cartão de Crédito';
+
+      await resend.emails.send({
+        from: "Paçoca Games <onboarding@resend.dev>",
+        to: [user.email!],
+        subject: "Compra confirmada - Paçoca Games",
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h1 style="color: #333; border-bottom: 2px solid #4CAF50; padding-bottom: 10px;">
+              Compra Confirmada! 🎮
+            </h1>
+            <p style="font-size: 16px; color: #555;">
+              Olá! Sua compra foi confirmada com sucesso.
+            </p>
+            <h2 style="color: #333; margin-top: 30px;">Detalhes da compra:</h2>
+            <ul style="list-style: none; padding: 0;">
+              ${gamesList}
+            </ul>
+            <div style="margin-top: 30px; padding: 20px; background-color: #f5f5f5; border-radius: 5px;">
+              <p style="margin: 0; font-size: 18px; font-weight: bold; color: #333;">
+                Total pago: R$ ${amount.toFixed(2)}
+              </p>
+              <p style="margin: 10px 0 0 0; font-size: 14px; color: #666;">
+                Método de pagamento: ${paymentMethod}
+              </p>
+            </div>
+            <p style="margin-top: 30px; font-size: 14px; color: #555;">
+              Os jogos já estão disponíveis na sua biblioteca!
+            </p>
+            <p style="font-size: 14px; color: #999; margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px;">
+              Obrigado por comprar na Paçoca Games!
+            </p>
+          </div>
+        `,
+      });
+      console.log("[VERIFY-PAYMENT] Confirmation email sent successfully");
+    } catch (emailError) {
+      console.error("[VERIFY-PAYMENT] Error sending confirmation email:", emailError);
+      // Não falhamos a requisição se o email falhar
+    }
 
     return new Response(
       JSON.stringify({ 
