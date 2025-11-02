@@ -40,9 +40,7 @@ serve(async (req) => {
       amount: 0,
       status: 'completed',
       payment_method: 'free',
-      items: JSON.stringify(items),
-      coupon_code: couponCode || null,
-      discount_amount: items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0)
+      items: JSON.stringify(items)
     });
 
     if (transactionError) {
