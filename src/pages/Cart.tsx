@@ -72,8 +72,8 @@ export default function Cart() {
         if (error) throw error;
 
         toast({
-          title: "Compra confirmada!",
-          description: "Seus jogos foram adicionados à sua biblioteca. Verifique seu email!",
+          title: "Seu jogo foi comprado.",
+          description: "Seus jogos foram adicionados à sua biblioteca e enviamos a confirmação por email.",
         });
 
         await clearCart();
