@@ -69,9 +69,9 @@ export default function Checkout() {
           <div className="max-w-2xl mx-auto text-center">
             <div className="bg-card border-border rounded-lg p-8">
               <CheckCircle className="h-16 w-16 mx-auto text-green-500 mb-4" />
-              <h1 className="text-3xl font-bold text-foreground mb-2">Pagamento Aprovado!</h1>
+              <h1 className="text-3xl font-bold text-foreground mb-2">Seu jogo foi comprado!</h1>
               <p className="text-muted-foreground mb-6">
-                Sua compra foi processada com sucesso. Os jogos foram adicionados à sua biblioteca.
+                Sua compra foi processada com sucesso. Os jogos foram adicionados à sua biblioteca e enviamos a confirmação por email.
               </p>
               <div className="space-y-3">
                 <Button
