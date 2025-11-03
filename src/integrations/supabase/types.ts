@@ -191,7 +191,7 @@ export type Database = {
     }
     Functions: {
       add_games_to_library: {
-        Args: { game_ids: string[]; user_id: string }
+        Args: { p_game_ids: string[]; p_user_id: string }
         Returns: undefined
       }
       create_transaction: {
