@@ -30,6 +30,7 @@ import game29 from "@/assets/game-29.jpg";
 import game30 from "@/assets/game-30.jpg";
 import game31 from "@/assets/game-31.jpg";
 import game32 from "@/assets/game-32.jpg";
+import rdr2Cover from "@/assets/rdr2-cover.jpg";
 
 export interface Game {
   id: string;
@@ -99,7 +100,7 @@ export const games: Game[] = [
     originalPrice: "R$ 249,99",
     discount: "40%",
     rating: 5,
-    image: game3,
+    image: rdr2Cover,
     trailerImage: game4,
     featured: true,
     category: "adventure",
