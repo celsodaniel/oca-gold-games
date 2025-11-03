@@ -57,8 +57,8 @@ serve(async (req) => {
     // Add games to user library
     const gameIds = items.map((item: any) => item.game_id);
     const { error: libraryError } = await supabaseClient.rpc('add_games_to_library', {
-      user_id: user.id,
-      game_ids: gameIds
+      p_user_id: user.id,
+      p_game_ids: gameIds
     });
 
     if (libraryError) {
